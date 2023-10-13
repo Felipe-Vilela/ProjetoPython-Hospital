@@ -55,4 +55,6 @@ def main():
     consultas = dict()
 
     subMenu(menu(), medicos, pacientes, consultas)
+
+    print("teste2")
 main()
