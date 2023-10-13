@@ -56,6 +56,5 @@ def main():
 
     subMenu(menu(), medicos, pacientes, consultas)
 
-    print("Teste01")
-    print("teste2")
+
 main()
