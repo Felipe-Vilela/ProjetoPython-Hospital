@@ -10,8 +10,45 @@ def menu():
 
 	return opc
 
+def inserirMedicos(medicos, emails, telefones):
+    crm = str(input("Digite o CRM: ")).lower()
+    nome = str(input("Digite o seu nome: ")).lower()
+    data_nascimento = str(input("Digite a dat de nascimento (xx/xx/xxxx): ")).lower()
+    sexo = str(input("Digite o sexo (M/F) : ")).lower()
+    especialidade = str(input("Digite a especialidade: ")).lower()
+    universidade = str(input("Digite a universidade em que se formou: ")).lower()
+
+    emails = inserirEmail(emails)
+    telefones = inserirTelefones(telefones)
+
+    medicos [crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
+
+    return medicos
+
+def inserirEmail(emails):
+    email = str(input("Digite o e-mail: ")).lower()
+    
+    while email != "":
+        emails.append(email)
+        email = str(input("Digite o e-mail ou [ENTER] para sair: ")).lower()
+    
+    return emails
+        
+
+def inserirTelefones(telefones):
+    telefone = str(input("Digite o telefone ou [ENTER] para sair: ")).lower()
+
+    while telefone != "":
+        telefones.append(telefone)
+        telefone = str(input("Digite o telefone ou [ENTER] para sair: ")).lower()
+    
+    return telefones
+
+ 
 def subMenu(opcao, medicos, pacientes, consultas):
     while opcao <= 4:
+        emails = []
+        telefones = []
         print("="*100)
         print("SUBMENU DE OPÇÕES")
         if opcao == 1:
@@ -21,6 +58,9 @@ def subMenu(opcao, medicos, pacientes, consultas):
             print("4. Listar Médico")
             print("5. Listar Todos")
             opc = int(input("Qual opção você deseja? "))
+
+            if opc == 1:
+                print(inserirMedicos(medicos, emails, telefones))
 
         elif opcao == 2:
             print("1. Incluir Paciente")
@@ -55,6 +95,9 @@ def main():
     consultas = dict()
 
     subMenu(menu(), medicos, pacientes, consultas)
-
-
+    
+    
 main()
+
+
+
