@@ -27,7 +27,7 @@ def inserirMedicos(medicos, emails, telefones):
     return medicos
 
 # DICIONÁRIO DOS PACIENTES
-# Paciente = (CPF, Nome, Data de Nascimento, Sexo, Plano de Saúde, E-mails, Telefones)
+
 def inserirPacientes(pacientes, emails, telefones):
     cpf = str(input("Digite o CPF: ")).lower()
     nome = str(input("Digite o seu nome: ")).lower()
@@ -46,8 +46,29 @@ def inserirPacientes(pacientes, emails, telefones):
 # DICIONÁRIO DA CONSULTA
 # Consulta = (CRM, CPF, Data, Hora, Diagnostico, Medicamentos)
 def inserirConsultas(consultas):
+    crm = str(input("Digite o CRM: ")).lower()
+    cpf = str(input("Digite o CPF: ")).lower()
+    data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
+    hora = str(input("Digite o horario (xx:xx): ")).lower()
+    diagnostico = str(input("Digite o diagnostico: ")).lower()
+       
+    medicamentos = []
+    medicamentos = inserirMedicamentos(medicamentos)
+    
+    chaves = (crm, cpf, data, hora)
+
+    consultas[chaves] = [diagnostico, medicamentos]
 
     return consultas
+
+def inserirMedicamentos(medicamentos):
+    medicamento = str(input("Digite o medicamento: ")).lower()
+    
+    while medicamento != "":
+        medicamentos.append(medicamento)
+        medicamento = str(input("Digite o medicamento: ")).lower()
+
+    return medicamentos
 
 # SUBFUNÇÕES
 def inserirEmail(emails):
