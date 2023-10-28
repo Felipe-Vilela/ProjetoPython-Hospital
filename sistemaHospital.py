@@ -13,34 +13,63 @@ def menu():
 # DICIONÁRIO DOS MÉDICOS
 def inserirMedicos(medicos, emails, telefones):
     crm = str(input("Digite o CRM: ")).lower()
-    nome = str(input("Digite o seu nome: ")).lower()
-    data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
-    sexo = str(input("Digite o seu sexo (M/F) : ")).lower()
-    especialidade = str(input("Digite a sua especialidade: ")).lower()
-    universidade = str(input("Digite a universidade em que se formou: ")).lower()
+    if verificarInclusao(medicos, crm):
+        nome = str(input("Digite o seu nome: ")).lower()
+        data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
+        sexo = str(input("Digite o seu sexo (M/F) : ")).lower()
+        especialidade = str(input("Digite a sua especialidade: ")).lower()
+        universidade = str(input("Digite a universidade em que se formou: ")).lower()
 
-    emails = inserirEmail(emails)
-    telefones = inserirTelefones(telefones)
+        emails = inserirEmail(emails)
+        telefones = inserirTelefones(telefones)
 
-    medicos [crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
+        medicos [crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
 
-    return medicos
+        return True
+    else:
+        return False
+
+def alterarMedico(medicos):
+    return True
+
+def excluirMedico(medicos):
+    return True
+
+def listarMedico(medicos):
+    return True
+
+
 
 # DICIONÁRIO DOS PACIENTES
 
 def inserirPacientes(pacientes, emails, telefones):
     cpf = str(input("Digite o CPF: ")).lower()
-    nome = str(input("Digite o seu nome: ")).lower()
-    data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
-    sexo = str(input("Digite o seu sexo (M/F) : ")).lower()
-    plano_saude = str(input("Digite o seu plano de saúde: ")).lower()
-    
-    emails = inserirEmail(emails)
-    telefones = inserirTelefones(telefones)
+    if verificarInclusao(pacientes, cpf):
+        nome = str(input("Digite o seu nome: ")).lower()
+        data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
+        sexo = str(input("Digite o seu sexo (M/F) : ")).lower()
+        plano_saude = str(input("Digite o seu plano de saúde: ")).lower()
+        emails = inserirEmail(emails)
+        telefones = inserirTelefones(telefones)
 
-    pacientes[cpf] = [nome, data_nascimento, sexo, plano_saude, emails, telefones]
+        pacientes[cpf] = [nome, data_nascimento, sexo, plano_saude, emails, telefones]
+        return True
+    else:
+        print("Paciente já está na lista")
 
-    return pacientes
+        return False
+
+def alterarPaciente(pacientes):
+    return True
+
+def excluirPaciente(pacientes):
+    return True
+
+def listarPaciente(pacientes):
+    return True
+
+def listarTodos(dicionario): #Utilizado para pacientes, medicos e consultas
+    return True
 
 
 # DICIONÁRIO DA CONSULTA
@@ -50,26 +79,33 @@ def inserirConsultas(consultas):
     cpf = str(input("Digite o CPF: ")).lower()
     data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
     hora = str(input("Digite o horario (xx:xx): ")).lower()
-    diagnostico = str(input("Digite o diagnostico: ")).lower()
-       
-    medicamentos = []
-    medicamentos = inserirMedicamentos(medicamentos)
-    
     chaves = (crm, cpf, data, hora)
+    if verificarInclusao(consultas, chaves):
+        diagnostico = str(input("Digite o diagnostico: ")).lower()
+        medicamentos = []
+        medicamentos = inserirMedicamentos(medicamentos)
+        consultas[chaves] = [diagnostico, medicamentos]
+        return True
+    else:
+        return False
 
-    consultas[chaves] = [diagnostico, medicamentos]
+def alterarConsulta(consultas):
+    return True
 
-    return consultas
+def excluirConsulta(consultas):
+    return True
 
-def inserirMedicamentos(medicamentos):
-    medicamento = str(input("Digite o medicamento: ")).lower()
-    
-    while medicamento != "":
-        medicamentos.append(medicamento)
-        medicamento = str(input("Digite o medicamento: ")).lower()
+def listarConsulta(consultas):
+    return True
 
-    return medicamentos
+def medicosEspecilizacaoX(medicos,especializacao):
+    return True
 
+def pacientesMenoresXIdade(pacientes,idade):
+    return True
+
+def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, diasAtras):
+    return True
 # SUBFUNÇÕES
 def inserirEmail(emails):
     email = str(input("Digite o e-mail: ")).lower()
@@ -90,6 +126,21 @@ def inserirTelefones(telefones):
     
     return telefones
 
+def inserirMedicamentos(medicamentos):
+    medicamento = str(input("Digite o medicamento: ")).lower()
+    
+    while medicamento != "":
+        medicamentos.append(medicamento)
+        medicamento = str(input("Digite o medicamento ou [ENTER] para sair: ")).lower()
+
+    return medicamentos
+
+def verificarInclusao(dicionario, chave):
+    if chave not in dicionario.keys():
+        return True
+    else:
+        return False
+
 # FUNÇÕES PRINCIPAIS
 def subMenu(opcao, medicos, pacientes, consultas):
     while opcao <= 4:
@@ -106,7 +157,10 @@ def subMenu(opcao, medicos, pacientes, consultas):
             opc = int(input("Qual opção você deseja? "))
 
             if opc == 1:
-                inserirMedicos(medicos, emails, telefones)
+                if inserirMedicos(medicos, emails, telefones):
+                    print("Médico adicionado com sucesso!")
+                else:
+                    print("Médico já está cadastrado")
 
         elif opcao == 2:
             print("1. Incluir Paciente")
@@ -117,7 +171,10 @@ def subMenu(opcao, medicos, pacientes, consultas):
             opc = int(input("Qual opção você deseja? "))
 
             if opc == 1:
-                inserirPacientes(pacientes, emails, telefones)
+                if inserirPacientes(pacientes, emails, telefones):
+                    print("Paciente adicionado com sucesso!")
+                else:
+                    print("Paciente já esta cadastrado")
 
         elif opcao == 3:
             print("1. Incluir Consulta")
@@ -128,13 +185,33 @@ def subMenu(opcao, medicos, pacientes, consultas):
             opc = int(input("Qual opção você deseja? "))
 
             if opc == 1:
-                inserirConsultas(consultas)
+                if inserirConsultas(consultas):
+                    print("Consulta marcada com sucesso!")
+                else:
+                    print("Consulta não marcada!")
 
         elif opcao == 4:
             print("1. Mostrar medicos com a especialização X")
             print("2. Mostrar pacientes menores de X idade")
             print("3. Mostrar o CRM, o nome do médico, o CPF do paciente, o nome do paciente, data, hora, diagnostico e medicamentos para todas as consultas realizadasnos últimos X dias")
             opc = int(input("Qual opção você deseja? "))   
+
+            if opc == 1:
+                especializacao = str(input("Informe a especialização desejada: "))
+                if medicosEspecilizacaoX(medicos,especializacao):
+                    print(f"Esses são os médicos com a especialização {especializacao} !")
+                else:
+                    print(f"Não temos médicos com a especialização informada {especializacao}")
+            elif opc == 2:
+                idade = int(input("Informe a idade máxima dos pacientes que deseja ver: "))
+                if pacientesMenoresXIdade(pacientes, idade):
+                    print(f"Esses são os pacientes menores de {idade} anos!")
+                else:
+                    print(f"Não temos pacientes menores de {idade} anos!")
+            elif opc == 3:
+                ultimosDias = int(input("Informe de quantos dias atrás deseja ver consultas: "))
+                if mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas):
+                    print(f"Essas são as consultas dos ultimos {ultimosDias} dias ")
                 
         print("="*100)
         opcao = menu()
