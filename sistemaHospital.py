@@ -63,7 +63,12 @@ def alterarPaciente(pacientes):
     return True
 
 def excluirPaciente(pacientes):
-    return True
+    cpf = str(input("Infome o cpf do paciente que deseja excluir: "))
+    if cpf in pacientes.keys():
+        del pacientes[cpf]
+        return True
+    else:
+        return False
 
 def listarPaciente(pacientes):
     return True
@@ -175,6 +180,12 @@ def subMenu(opcao, medicos, pacientes, consultas):
                     print("Paciente adicionado com sucesso!")
                 else:
                     print("Paciente já esta cadastrado")
+            
+            elif opc ==3:
+                if excluirPaciente(pacientes):
+                    print("Paciente excluido com sucesso!")
+                else:
+                    print("Paciente não cadastrado")
 
         elif opcao == 3:
             print("1. Incluir Consulta")
