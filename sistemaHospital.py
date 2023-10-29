@@ -85,14 +85,28 @@ def inserirConsultas(consultas):
     data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
     hora = str(input("Digite o horario (xx:xx): ")).lower()
     chaves = (crm, cpf, data, hora)
-    if verificarInclusao(consultas, chaves):
+
+    if consultas != {} :
+        for k in consultas.keys():
+            if k[0] == crm and k[2] == data and k[3] == hora or k[1] == cpf and k[2] == data and k[3] == hora:            
+                return False
+            
+            else:
+                diagnostico = str(input("Digite o diagnostico: ")).lower()
+                medicamentos = []
+                medicamentos = inserirMedicamentos(medicamentos)
+                consultas[chaves] = [diagnostico, medicamentos]
+                return True
+    else:
         diagnostico = str(input("Digite o diagnostico: ")).lower()
         medicamentos = []
         medicamentos = inserirMedicamentos(medicamentos)
         consultas[chaves] = [diagnostico, medicamentos]
+
         return True
-    else:
-        return False
+
+
+
 
 def alterarConsulta(consultas):
     return True
@@ -199,7 +213,7 @@ def subMenu(opcao, medicos, pacientes, consultas):
                 if inserirConsultas(consultas):
                     print("Consulta marcada com sucesso!")
                 else:
-                    print("Consulta não marcada!")
+                    print("Consulta inválida!")
 
         elif opcao == 4:
             print("1. Mostrar medicos com a especialização X")
