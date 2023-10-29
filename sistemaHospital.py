@@ -104,15 +104,26 @@ def inserirConsultas(consultas):
         consultas[chaves] = [diagnostico, medicamentos]
 
         return True
-
-
-
-
+    
 def alterarConsulta(consultas):
+
     return True
 
 def excluirConsulta(consultas):
-    return True
+    print("Informe os dados da consulta que deseja excluir: ")
+    crm = str(input("Digite o CRM: ")).lower()
+    cpf = str(input("Digite o CPF: ")).lower()
+    data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
+    hora = str(input("Digite o horario (xx:xx): ")).lower()
+
+    consultaExcluir = (crm, cpf, data, hora)
+
+    if consultaExcluir in consultas.keys():
+        del consultas[consultaExcluir]
+        return True
+    else:
+        return False
+    
 
 def listarConsulta(consultas):
     return True
@@ -214,6 +225,14 @@ def subMenu(opcao, medicos, pacientes, consultas):
                     print("Consulta marcada com sucesso!")
                 else:
                     print("Consulta inválida!")
+
+            elif opc == 3:
+                if excluirConsulta(consultas):
+                    print("Consulta excluida com sucesso!")
+                else:
+                    print("Consulta inválida!")
+
+
 
         elif opcao == 4:
             print("1. Mostrar medicos com a especialização X")
