@@ -39,7 +39,6 @@ def listarMedico(medicos):
     return True
 
 
-
 # DICIONÁRIO DOS PACIENTES
 
 def inserirPacientes(pacientes, emails, telefones):
@@ -78,7 +77,6 @@ def listarTodos(dicionario): #Utilizado para pacientes, medicos e consultas
 
 
 # DICIONÁRIO DA CONSULTA
-# Consulta = (CRM, CPF, Data, Hora, Diagnostico, Medicamentos)
 def inserirConsultas(consultas):
     crm = str(input("Digite o CRM: ")).lower()
     cpf = str(input("Digite o CPF: ")).lower()
@@ -92,13 +90,13 @@ def inserirConsultas(consultas):
                 return False
             
             else:
-                diagnostico = str(input("Digite o diagnostico: ")).lower()
+                diagnostico = str(input("Digite o diagnóstico: ")).lower()
                 medicamentos = []
                 medicamentos = inserirMedicamentos(medicamentos)
                 consultas[chaves] = [diagnostico, medicamentos]
                 return True
     else:
-        diagnostico = str(input("Digite o diagnostico: ")).lower()
+        diagnostico = str(input("Digite o diagnóstico: ")).lower()
         medicamentos = []
         medicamentos = inserirMedicamentos(medicamentos)
         consultas[chaves] = [diagnostico, medicamentos]
@@ -106,9 +104,48 @@ def inserirConsultas(consultas):
         return True
     
 def alterarConsulta(consultas):
+    print("Informe os dados da consulta que deseja alterar: ")
+    crm = str(input("Digite o CRM: ")).lower()
+    cpf = str(input("Digite o CPF: ")).lower()
+    data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
+    hora = str(input("Digite o horario (xx:xx): ")).lower()
 
-    return True
+    consultaAlterar = (crm, cpf, data, hora)
 
+    medicamentos = []
+    lista_geral = []
+
+    if consultaAlterar in consultas.keys():
+        for k in consultas.keys():
+            if consultaAlterar == k:
+                for v in consultas.get(k):
+                    lista_geral.append(v)
+        
+        diagnostico = lista_geral[0]
+        medicamentos = lista_geral[1]
+
+        opcaoAlterar = str(input("Qual dado você deseja alterar (diagnostico ou medicamentos)? ")).lower()
+
+        if opcaoAlterar == "diagnostico":
+            diagnostico = str(input("Digite o diagnóstico: ")).lower()
+            consultas[consultaAlterar] = [diagnostico, medicamentos]
+
+            return True 
+        elif opcaoAlterar == "medicamentos":
+            medicamentoAlterar = str(input("Digite o medicamento que deseja alterar: "))
+            medicamentoNovo = str(input("Digite o medicamento novo: "))
+
+            medicamentos.remove(medicamentoAlterar)
+            medicamentos.append(medicamentoNovo) 
+
+            consultas[consultaAlterar] = [diagnostico, medicamentos]
+
+            return True
+        else:
+            return False
+    else:
+        return False
+    
 def excluirConsulta(consultas):
     print("Informe os dados da consulta que deseja excluir: ")
     crm = str(input("Digite o CRM: ")).lower()
@@ -124,7 +161,6 @@ def excluirConsulta(consultas):
     else:
         return False
     
-
 def listarConsulta(consultas):
     return True
 
@@ -136,6 +172,7 @@ def pacientesMenoresXIdade(pacientes,idade):
 
 def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, diasAtras):
     return True
+
 # SUBFUNÇÕES
 def inserirEmail(emails):
     email = str(input("Digite o e-mail: ")).lower()
@@ -224,15 +261,17 @@ def subMenu(opcao, medicos, pacientes, consultas):
                 if inserirConsultas(consultas):
                     print("Consulta marcada com sucesso!")
                 else:
-                    print("Consulta inválida!")
-
+                    print("Consulta inválida!")  
+            if opc == 2:         
+                if alterarConsulta(consultas):
+                    print("Consulta alterada com sucesso!")                
+                else:
+                    print("Consulta inválida")           
             elif opc == 3:
                 if excluirConsulta(consultas):
                     print("Consulta excluida com sucesso!")
                 else:
                     print("Consulta inválida!")
-
-
 
         elif opcao == 4:
             print("1. Mostrar medicos com a especialização X")
