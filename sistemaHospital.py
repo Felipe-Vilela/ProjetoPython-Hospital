@@ -102,7 +102,7 @@ def inserirConsultas(consultas):
         consultas[chaves] = [diagnostico, medicamentos]
 
         return True
-    
+
 def alterarConsulta(consultas):
     print("Informe os dados da consulta que deseja alterar: ")
     crm = str(input("Digite o CRM: ")).lower()
@@ -164,6 +164,26 @@ def excluirConsulta(consultas):
 def listarConsulta(consultas):
     return True
 
+def gravar_consultas(nome_arquivo, consultas):
+    ref_arq = open(nome_arquivo, "w")
+    for chave in consultas.keys():
+        linha = ""
+        linha += chave[0] + ";"
+        linha += chave[1] + ";"
+        linha += chave[2] + ";"
+        linha += chave[3] + ";"
+      
+        linha += consultas.get(chave)[0] + ";"
+        for medicamentos in consultas.get(chave)[1]:
+            linha += medicamentos + ";"
+        
+        linha += "\n"
+
+        ref_arq.write(linha)
+
+    ref_arq.close()
+    
+# FUNÇÕES RELATÓRIOS
 def medicosEspecilizacaoX(medicos,especializacao):
     return True
 
@@ -174,6 +194,14 @@ def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, diasAtras):
     return True
 
 # SUBFUNÇÕES
+
+def existe_arquivo(nome_arquivo):
+    import os
+    if os.path.exists(nome_arquivo):
+        return True
+    else:
+        return False
+    
 def inserirEmail(emails):
     email = str(input("Digite o e-mail: ")).lower()
     
@@ -208,9 +236,14 @@ def verificarInclusao(dicionario, chave):
     else:
         return False
 
+
+
 # FUNÇÕES PRINCIPAIS
-def subMenu(opcao, medicos, pacientes, consultas):
-    while opcao <= 4:
+def subMenu(medicos, pacientes, consultas):
+
+    opcao = 1
+    while opcao != 5:
+        opcao = menu()
         emails = []
         telefones = []
         print("="*100)
@@ -295,18 +328,19 @@ def subMenu(opcao, medicos, pacientes, consultas):
                 ultimosDias = int(input("Informe de quantos dias atrás deseja ver consultas: "))
                 if mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas):
                     print(f"Essas são as consultas dos ultimos {ultimosDias} dias ")
+        elif opcao == 5:
+            gravar_consultas("Consultas.txt", consultas)
+            print("Encerrando o programa!")
                 
         print("="*100)
-        opcao = menu()
-        
-    print("Encerrando...")    
+           
 
 def main():
     medicos = dict()
     pacientes = dict()
     consultas = dict()
 
-    subMenu(menu(), medicos, pacientes, consultas)
+    subMenu( medicos, pacientes, consultas)
 
     print(medicos)
     print(pacientes)
