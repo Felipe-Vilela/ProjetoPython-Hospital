@@ -182,6 +182,29 @@ def gravar_consultas(nome_arquivo, consultas):
         ref_arq.write(linha)
 
     ref_arq.close()
+
+def ler_consultas(nome_arquivo, consultas):
+    if existe_arquivo(nome_arquivo):
+        ref_arq = open(nome_arquivo, "r")
+
+        for linha in ref_arq:
+            if linha != "\n":
+                linha = linha.split(";")
+                chaves = (linha[0], linha[1], linha[2], linha[3])
+                consultas[chaves] = []
+                consultas.get(chaves).append(linha[4])
+                consultas.get(chaves).append([])
+
+                for i in range(5, len(linha) - 1):
+                    if linha[i] != "\n":
+                        consultas.get(chaves)[1].append(linha[i])
+
+                print(consultas)
+
+        ref_arq.close()
+    return consultas
+
+
     
 # FUNÇÕES RELATÓRIOS
 def medicosEspecilizacaoX(medicos,especializacao):
@@ -240,7 +263,7 @@ def verificarInclusao(dicionario, chave):
 
 # FUNÇÕES PRINCIPAIS
 def subMenu(medicos, pacientes, consultas):
-
+    consultas = ler_consultas("Consultas.txt", consultas)
     opcao = 1
     while opcao != 5:
         opcao = menu()
