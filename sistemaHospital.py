@@ -64,6 +64,33 @@ def gravar_medicos(nome_arquivo, medicos):
         ref_arq.write(linha)
     ref_arq.close()
 
+def ler_medicos(nome_arquivo, medicos):
+    if existe_arquivo(nome_arquivo):
+        ref_arq = open(nome_arquivo, "r")
+        
+        for linha in ref_arq:
+            if linha != "\n":
+                linha = linha.split(";")
+
+                chave = linha[0]
+                medicos[chave] = []
+                medicos.get(chave).append(linha[1])
+                medicos.get(chave).append(linha[2])
+                medicos.get(chave).append(linha[3])
+                medicos.get(chave).append(linha[4])
+                medicos.get(chave).append(linha[5])
+
+                medicos.get(chave).append([])
+                medicos.get(chave).append([])
+
+                for i in range(6, len(linha)):
+                    if linha[i] != "\n":
+                        if "@" in linha[i]:
+                            medicos.get(chave)[5].append(linha[i])
+                        else:
+                            medicos.get(chave)[6].append(linha[i])
+    print(medicos)
+    return medicos
 
 # DICIONÁRIO DOS PACIENTES
 
@@ -226,8 +253,6 @@ def ler_consultas(nome_arquivo, consultas):
 
         ref_arq.close()
     return consultas
-
-
     
 # FUNÇÕES RELATÓRIOS
 def medicosEspecilizacaoX(medicos,especializacao):
@@ -283,10 +308,10 @@ def verificarInclusao(dicionario, chave):
         return False
 
 
-
 # FUNÇÕES PRINCIPAIS
 def subMenu(medicos, pacientes, consultas):
     consultas = ler_consultas("Consultas.txt", consultas)
+    medicos = ler_medicos("Medicos.txt", medicos)
     opcao = 1
     while opcao != 5:
         opcao = menu()
