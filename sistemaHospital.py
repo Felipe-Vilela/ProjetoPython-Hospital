@@ -213,9 +213,23 @@ def excluirConsulta(consultas):
     else:
         return False
     
-def listarConsulta(consultas):
-    return True
+def listarConsulta(consultas):  
+    crm = str(input("Digite o CRM: ")).lower()
+    cpf = str(input("Digite o CPF: ")).lower()
+    data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
+    hora = str(input("Digite o horario (xx:xx): ")).lower()
+    chaves = (crm, cpf, data, hora)
 
+    if chaves in consultas.keys():
+        for chave in consultas.keys():
+            if chaves == chave:
+                print(f"Diagnóstico: {consultas.get(chave)[0]}")
+                
+                for medicamentos in consultas.get(chave)[1]:
+                    print(f"Medicamento: {medicamentos}")
+    else:
+        print("Consulta não cadastrada.")
+    
 def gravar_consultas(nome_arquivo, consultas):
     ref_arq = open(nome_arquivo, "w")
     for chave in consultas.keys():
@@ -307,7 +321,6 @@ def verificarInclusao(dicionario, chave):
     else:
         return False
 
-
 # FUNÇÕES PRINCIPAIS
 def subMenu(medicos, pacientes, consultas):
     consultas = ler_consultas("Consultas.txt", consultas)
@@ -381,6 +394,8 @@ def subMenu(medicos, pacientes, consultas):
                     print("Consulta excluida com sucesso!")
                 else:
                     print("Consulta inválida!")
+            elif opc == 4:
+                listarConsulta(consultas)
 
         elif opcao == 4:
             print("1. Mostrar medicos com a especialização X")
@@ -405,12 +420,11 @@ def subMenu(medicos, pacientes, consultas):
                 if mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas):
                     print(f"Essas são as consultas dos ultimos {ultimosDias} dias ")
         elif opcao == 5:
-            gravar_consultas("Consultas.txt", consultas)
             gravar_medicos("Medicos.txt", medicos)
+            gravar_consultas("Consultas.txt", consultas)
             print("Encerrando o programa!")
                 
-        print("="*100)
-           
+        print("="*100)     
 
 def main():
     medicos = dict()
