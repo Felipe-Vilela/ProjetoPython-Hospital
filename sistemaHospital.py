@@ -127,6 +127,55 @@ def listarPaciente(pacientes):
 
 def listarTodos(dicionario): #Utilizado para pacientes, medicos e consultas
     return True
+def gravar_pacientes(nome_arquivo, pacientes):
+    ref_arq = open(nome_arquivo, "w")
+
+    for chave in pacientes.keys():
+        linha = ""
+        linha += chave + ";"
+        
+        for i in range(len(pacientes.get(chave)) - 2):
+            linha += pacientes.get(chave)[i] + ";"
+
+        for emails in pacientes.get(chave)[4]:
+            linha += emails + ";"
+
+        for telefones in pacientes.get(chave)[5]:
+            linha += telefones + ";"
+            
+        linha += "\n"
+
+        ref_arq.write(linha)
+    ref_arq.close()
+
+def ler_pacientes(nome_arquivo, pacientes):
+    if existe_arquivo(nome_arquivo):
+        ref_arq = open(nome_arquivo, "r")
+    
+    for linha in ref_arq:
+        if linha != "\n":
+            linha = linha.split(";")
+
+            chave = linha[0]
+            pacientes[chave] = []
+            pacientes.get(chave).append(linha[1])
+            pacientes.get(chave).append(linha[2])
+            pacientes.get(chave).append(linha[3])
+            pacientes.get(chave).append(linha[4])
+
+            pacientes.get(chave).append([])
+            pacientes.get(chave).append([])
+
+            for i in range(4, len(linha)):
+                if linha[i] != "\n":
+                    if "@" in linha[i]:
+                        pacientes.get(chave)[4].append(linha[i])
+                    else:
+                        pacientes.get(chave)[5].append(linha[i])
+    print("Aqui")
+    print(pacientes)
+    return pacientes
+
 
 # DICIONÁRIO DA CONSULTA
 def inserirConsultas(consultas):
@@ -325,6 +374,7 @@ def verificarInclusao(dicionario, chave):
 def subMenu(medicos, pacientes, consultas):
     consultas = ler_consultas("Consultas.txt", consultas)
     medicos = ler_medicos("Medicos.txt", medicos)
+    pacientes = ler_pacientes("Pacientes.txt", pacientes)
     opcao = 1
     while opcao != 5:
         opcao = menu()
@@ -422,6 +472,7 @@ def subMenu(medicos, pacientes, consultas):
         elif opcao == 5:
             gravar_medicos("Medicos.txt", medicos)
             gravar_consultas("Consultas.txt", consultas)
+            gravar_pacientes("Pacientes.txt", pacientes)
             print("Encerrando o programa!")
                 
         print("="*100)     
