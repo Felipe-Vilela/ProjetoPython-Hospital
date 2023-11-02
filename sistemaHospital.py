@@ -112,7 +112,73 @@ def inserirPacientes(pacientes, emails, telefones):
         return False
 
 def alterarPaciente(pacientes):
-    return True
+    print("Informe o cpf do paciente que deseja alterar: ")
+
+    cpf = str(input("Digite o CPF: ")).lower()
+
+
+    emails = []
+    telefones = []
+    lista_geral = []
+
+    if cpf in pacientes.keys():
+        for k in pacientes.keys():
+            if cpf == k:
+                for v in pacientes.get(k):
+                    lista_geral.append(v)
+        
+        nome = lista_geral[0]
+        data_nascimento = lista_geral[1]
+        sexo = lista_geral[2]
+        plano_saude = lista_geral[3]
+        emails = lista_geral[4]
+        telefones = lista_geral[5]
+
+        opcaoAlterar = str(input("Qual dado você deseja alterar (nome, data de nascimento, sexo, plano de saúde, emails, telefones)? ")).lower()
+
+        if opcaoAlterar == "nome":
+            nome = str(input("Digite o nome: ")).lower()
+            pacientes[cpf] = [nome, data_nascimento, sexo, plano_saude, emails, telefones]
+            return True 
+
+        elif opcaoAlterar == "data de nascimento":
+            data_nascimento =  str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
+            pacientes[cpf] = [nome, data_nascimento, sexo, plano_saude, emails, telefones]
+            return True 
+
+        elif opcaoAlterar == "sexo":
+            sexo =  str(input("Digite o sexo: ")).lower()
+            pacientes[cpf] = [nome, data_nascimento, sexo, plano_saude, emails, telefones]
+            return True 
+        
+        elif opcaoAlterar == "plano de saúde":
+            plano_saude =  str(input("Digite o plano de saúde: ")).lower()
+            pacientes[cpf] = [nome, data_nascimento, sexo, plano_saude, emails, telefones]
+            return True 
+        elif opcaoAlterar == "emails":
+            emailAlterar = str(input("Digite o e-mail que deseja alterar: "))
+            emailNovo = str(input("Digite o e-mail novo: "))
+
+            emails.remove(emailAlterar)
+            emails.append(emailNovo) 
+
+            pacientes[cpf] = [nome, data_nascimento, sexo, plano_saude, emails, telefones]
+        
+            return True
+        elif opcaoAlterar == "telefones":
+            telefoneAlterar = str(input("Digite o telefone que deseja alterar: "))
+            telefoneNovo = str(input("Digite o telefone novo: "))
+
+            telefones.remove(telefoneAlterar)
+            telefones.append(telefoneNovo) 
+
+            pacientes[cpf] = [nome, data_nascimento, sexo, plano_saude, emails, telefones]
+        
+            return True
+        else:
+            return False
+    else:
+        return False
 
 def excluirPaciente(pacientes):
     cpf = str(input("Infome o cpf do paciente que deseja excluir: "))
@@ -170,9 +236,8 @@ def ler_pacientes(nome_arquivo, pacientes):
                 if linha[i] != "\n":
                     if "@" in linha[i]:
                         pacientes.get(chave)[4].append(linha[i])
-                    else:
+                    elif "0" in linha[i] or "0" in linha[i] or "1" in linha[i] or "2" in linha[i] or "3" in linha[i] or "4" in linha[i] or "5" in linha[i] or "6" in linha[i] or "7" in linha[i] or "8" in linha[i] or "9" in linha[i] or "-" in linha[i]:   
                         pacientes.get(chave)[5].append(linha[i])
-    print("Aqui")
     print(pacientes)
     return pacientes
 
@@ -414,6 +479,11 @@ def subMenu(medicos, pacientes, consultas):
                     print("Paciente adicionado com sucesso!")
                 else:
                     print("Paciente já esta cadastrado.")
+            if opc == 2:
+                if alterarPaciente(pacientes):
+                    print("Paciente alterado com sucesso!")
+                else:
+                    print("Paciente inválido!")
             
             elif opc ==3:
                 if excluirPaciente(pacientes):
