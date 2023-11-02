@@ -38,6 +38,27 @@ def excluirMedico(medicos):
 def listarMedico(medicos):
     return True
 
+def gravar_medicos(nome_arquivo, medicos):
+    ref_arq = open(nome_arquivo, "w")
+
+    for chave in medicos.keys():
+        linha = ""
+        linha += chave + ";"
+        
+        for i in range(len(medicos.get(chave)) - 2):
+            linha += medicos.get(chave)[i] + ";"
+
+        for emails in medicos.get(chave)[5]:
+            linha += emails + ";"
+
+        for telefones in medicos.get(chave)[6]:
+            linha += telefones + ";"
+            
+        linha += "\n"
+
+        ref_arq.write(linha)
+    ref_arq.close()
+
 
 # DICIONÁRIO DOS PACIENTES
 
@@ -74,7 +95,6 @@ def listarPaciente(pacientes):
 
 def listarTodos(dicionario): #Utilizado para pacientes, medicos e consultas
     return True
-
 
 # DICIONÁRIO DA CONSULTA
 def inserirConsultas(consultas):
@@ -198,8 +218,6 @@ def ler_consultas(nome_arquivo, consultas):
                 for i in range(5, len(linha) - 1):
                     if linha[i] != "\n":
                         consultas.get(chaves)[1].append(linha[i])
-
-                print(consultas)
 
         ref_arq.close()
     return consultas
@@ -353,6 +371,7 @@ def subMenu(medicos, pacientes, consultas):
                     print(f"Essas são as consultas dos ultimos {ultimosDias} dias ")
         elif opcao == 5:
             gravar_consultas("Consultas.txt", consultas)
+            gravar_medicos("Medicos.txt", medicos)
             print("Encerrando o programa!")
                 
         print("="*100)
