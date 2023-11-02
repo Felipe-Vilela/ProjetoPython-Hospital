@@ -33,7 +33,12 @@ def alterarMedico(medicos):
     return True
 
 def excluirMedico(medicos):
-    return True
+    crm = str(input("Infome o crm do médico que deseja excluir: "))
+    if crm in medicos.keys():
+        del medicos[crm]
+        return True
+    else:
+        return False
 
 def listarMedico(medicos):
     return True
@@ -302,6 +307,11 @@ def subMenu(medicos, pacientes, consultas):
                     print("Médico adicionado com sucesso!")
                 else:
                     print("Médico já está cadastrado")
+            elif opc == 3:
+                if excluirMedico(medicos):
+                    print("Médico excluido com sucesso!")
+                else:
+                    print("Médico não cadastrado.")
 
         elif opcao == 2:
             print("1. Incluir Paciente")
@@ -315,13 +325,13 @@ def subMenu(medicos, pacientes, consultas):
                 if inserirPacientes(pacientes, emails, telefones):
                     print("Paciente adicionado com sucesso!")
                 else:
-                    print("Paciente já esta cadastrado")
+                    print("Paciente já esta cadastrado.")
             
             elif opc ==3:
                 if excluirPaciente(pacientes):
                     print("Paciente excluido com sucesso!")
                 else:
-                    print("Paciente não cadastrado")
+                    print("Paciente não cadastrado.")
 
         elif opcao == 3:
             print("1. Incluir Consulta")
