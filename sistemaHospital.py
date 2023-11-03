@@ -469,7 +469,19 @@ def listarConsulta(consultas):
                     print(f"Medicamento: {medicamentos.capitalize()}")
     else:
         print("Consulta inválida.")
-    
+
+def listarTodasConsultas(consultas):
+    for chave in consultas.keys():
+        print("_"*100)
+        print(f"CRM: {chave[0]}")
+        print(f"CPF: {chave[1]}")
+        print(f"Data: {chave[2]}")
+        print(f"Hora: {chave[3]}")
+        print(f"Nome: {consultas.get(chave)[0].capitalize()}")
+        
+        for medicamentos in consultas.get(chave)[1]:
+            print(f"Medicamento: {medicamentos.capitalize()}")
+        
 def gravar_consultas(nome_arquivo, consultas):
     ref_arq = open(nome_arquivo, "w")
     for chave in consultas.keys():
@@ -509,10 +521,10 @@ def ler_consultas(nome_arquivo, consultas):
     return consultas
     
 # FUNÇÕES RELATÓRIOS
-def medicosEspecilizacaoX(medicos,especializacao):
+def medicosEspecilizacaoX(medicos, especializacao):
     return True
 
-def pacientesMenoresXIdade(pacientes,idade):
+def pacientesMenoresXIdade(pacientes, idade):
     return True
 
 def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, diasAtras):
@@ -658,6 +670,8 @@ def subMenu(medicos, pacientes, consultas):
                     print("Consulta inválida.")
             elif opc == 4:
                 listarConsulta(consultas)
+            elif opc == 5:
+                listarTodasConsultas(consultas)
 
         elif opcao == 4:
             print("1. Mostrar medicos com a especialização X")
@@ -667,7 +681,7 @@ def subMenu(medicos, pacientes, consultas):
 
             if opc == 1:
                 especializacao = str(input("Informe a especialização desejada: "))
-                if medicosEspecilizacaoX(medicos,especializacao):
+                if medicosEspecilizacaoX(medicos, especializacao):
                     print(f"Esses são os médicos com a especialização {especializacao} !")
                 else:
                     print(f"Não temos médicos com a especialização informada: {especializacao}")
