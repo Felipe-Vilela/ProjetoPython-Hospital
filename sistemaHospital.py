@@ -271,7 +271,23 @@ def excluirPaciente(pacientes):
         return False
 
 def listarPaciente(pacientes):
-    return True
+    cpf = str(input("Digite o CRM: ")).lower()
+    
+    if cpf in pacientes.keys():
+        for chave in pacientes.keys():
+            if chave == cpf:
+                print(f"Nome: {pacientes.get(chave)[0].capitalize()}")
+                print(f"Data de nascimento: {pacientes.get(chave)[1]}")
+                print(f"Sexo: {pacientes.get(chave)[2].capitalize()}")
+                print(f"Plano de saúde: {pacientes.get(chave)[3].capitalize()}")
+
+                for email in pacientes.get(chave)[4]:
+                    print(f"Email: {email}")
+
+                for telefone in pacientes.get(chave)[5]:
+                    print(f"Telefone: {telefone}")
+    else:
+        print("Paciente inválido.")
 
 def listarTodos(dicionario): #Utilizado para pacientes, medicos e consultas
     return True
@@ -578,12 +594,13 @@ def subMenu(medicos, pacientes, consultas):
                     print("Paciente alterado com sucesso!")
                 else:
                     print("Paciente inválido.")
-            
-            elif opc ==3:
+            elif opc == 3:
                 if excluirPaciente(pacientes):
                     print("Paciente excluido com sucesso!")
                 else:
                     print("Paciente inválido.")
+            elif opc == 4:
+                listarPaciente(pacientes)
 
         elif opcao == 3:
             print("1. Incluir Consulta")
