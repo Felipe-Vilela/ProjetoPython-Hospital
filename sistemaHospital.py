@@ -126,6 +126,9 @@ def listarMedico(medicos):
     else:
         print("Médico inválido.")
 
+def  listarTodosMedicos(medicos):
+    return True
+
 def gravar_medicos(nome_arquivo, medicos):
     ref_arq = open(nome_arquivo, "w")
 
@@ -172,11 +175,9 @@ def ler_medicos(nome_arquivo, medicos):
                             medicos.get(chave)[5].append(linha[i])
                         elif verificarTel(linha[i]):
                             medicos.get(chave)[6].append(linha[i])
-    print(medicos)
     return medicos
 
 # DICIONÁRIO DOS PACIENTES
-
 def inserirPacientes(pacientes, emails, telefones):
     cpf = str(input("Digite o CPF: ")).lower()
     if verificarInclusao(pacientes, cpf):
@@ -286,12 +287,26 @@ def listarPaciente(pacientes):
 
                 for telefone in pacientes.get(chave)[5]:
                     print(f"Telefone: {telefone}")
+            
     else:
         print("Paciente inválido.")
 
-def listarTodos(dicionario): #Utilizado para pacientes, medicos e consultas
-    return True
+def listarTodosPacientes(pacientes): #Utilizado para pacientes, medicos e consultas
+    for chave in pacientes.keys():
+        print("_"*100)
 
+        print(f"CPF: {chave}")
+        print(f"Nome: {pacientes.get(chave)[0]}")
+        print(f"Data de nascimento: {pacientes.get(chave)[1]}")
+        print(f"Sexo: {pacientes.get(chave)[2]}")
+        print(f"Plano de saúde: {pacientes.get(chave)[3]}")
+        
+        for email in pacientes.get(chave)[4]:
+                print(f"Email: {email}")
+
+        for telefone in pacientes.get(chave)[5]:
+            print(f"Telefone: {telefone}")
+    
 def gravar_pacientes(nome_arquivo, pacientes):
     ref_arq = open(nome_arquivo, "w")
 
@@ -337,9 +352,7 @@ def ler_pacientes(nome_arquivo, pacientes):
                         pacientes.get(chave)[4].append(linha[i])
                     elif verificarTel(linha[i]):
                         pacientes.get(chave)[5].append(linha[i])
-    print(pacientes)
     return pacientes
-
 
 # DICIONÁRIO DA CONSULTA
 def inserirConsultas(consultas):
@@ -515,7 +528,7 @@ def inserirEmail(emails):
     return emails
         
 def inserirTelefones(telefones):
-    telefone = str(input("Digite o telefone ou [ENTER] para sair: ")).lower()
+    telefone = str(input("Digite o telefone: ")).lower()
 
     while telefone != "":
         telefones.append(telefone)
@@ -575,6 +588,8 @@ def subMenu(medicos, pacientes, consultas):
                     print("Médico inválido.")
             elif opc == 4:
                 listarMedico(medicos)
+            elif opc == 5:
+                listarTodosMedicos(medicos)
 
         elif opcao == 2:
             print("1. Incluir Paciente")
@@ -601,6 +616,8 @@ def subMenu(medicos, pacientes, consultas):
                     print("Paciente inválido.")
             elif opc == 4:
                 listarPaciente(pacientes)
+            elif opc == 5:
+                listarTodosPacientes(pacientes)
 
         elif opcao == 3:
             print("1. Incluir Consulta")
@@ -663,11 +680,6 @@ def main():
     pacientes = dict()
     consultas = dict()
 
-    subMenu( medicos, pacientes, consultas)
-
-    print(medicos)
-    print(pacientes)
-    print(consultas)
-    
+    subMenu( medicos, pacientes, consultas)    
     
 main()
