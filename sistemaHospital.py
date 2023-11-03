@@ -23,14 +23,81 @@ def inserirMedicos(medicos, emails, telefones):
         emails = inserirEmail(emails)
         telefones = inserirTelefones(telefones)
 
-        medicos [crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
+        medicos[crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
 
         return True
     else:
         return False
 
 def alterarMedico(medicos):
-    return True
+    print("Informe o crm do médico que deseja alterar: ")
+    crm = str(input("Digite o CRM: ")).lower()
+    
+    emails = []
+    telefones = []
+    lista_geral = []
+
+    if crm in medicos.keys():
+        for k in medicos.keys():
+            if crm == k:
+                for v in medicos.get(k):
+                    lista_geral.append(v)
+                
+        nome = lista_geral[0]
+        data_nascimento = lista_geral[1]
+        sexo = lista_geral[2]
+        especialidade = lista_geral[3]
+        universidade = lista_geral[4]
+        emails = lista_geral[5]
+        telefones = lista_geral[6]
+        
+        opcaoAlterar = str(input("Qual dado você deseja alterar (nome, data de nascimento, sexo, especialidade, universidade, emails, telefones)? ")).lower()
+        
+        if opcaoAlterar == "nome":
+            nome = str(input("Digite o nome: ")).lower()
+            medicos[crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
+            return True 
+        elif opcaoAlterar == "data de nascimento":
+            data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
+            medicos[crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
+            return True 
+        elif opcaoAlterar == "sexo":
+            sexo = str(input("Digite o seu sexo (M/F) : ")).lower()
+            medicos[crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
+            return True
+        elif opcaoAlterar == "especialidade":
+            especialidade = str(input("Digite a sua especialidade: ")).lower()
+            medicos[crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
+            return True
+        elif opcaoAlterar == "universidade":
+            universidade = str(input("Digite a universidade em que se formou: ")).lower()
+            medicos[crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
+            return True
+        elif opcaoAlterar == "emails":
+            emailAlterar = str(input("Digite o e-mail que deseja alterar: "))
+            emailNovo = str(input("Digite o e-mail novo: "))
+
+            emails.remove(emailAlterar)
+            emails.append(emailNovo) 
+    
+            medicos[crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
+        
+            return True
+        elif opcaoAlterar == "telefones":
+            telefoneAlterar = str(input("Digite o telefone que deseja alterar: "))
+            telefoneNovo = str(input("Digite o telefone novo: "))
+
+            telefones.remove(telefoneAlterar)
+            telefones.append(telefoneNovo) 
+
+            medicos[crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
+        
+            return True
+        else:
+            return False
+    else:
+        return False
+    
 
 def excluirMedico(medicos):
     crm = str(input("Infome o crm do médico que deseja excluir: "))
@@ -116,7 +183,6 @@ def alterarPaciente(pacientes):
 
     cpf = str(input("Digite o CPF: ")).lower()
 
-
     emails = []
     telefones = []
     lista_geral = []
@@ -193,6 +259,7 @@ def listarPaciente(pacientes):
 
 def listarTodos(dicionario): #Utilizado para pacientes, medicos e consultas
     return True
+
 def gravar_pacientes(nome_arquivo, pacientes):
     ref_arq = open(nome_arquivo, "w")
 
@@ -240,7 +307,6 @@ def ler_pacientes(nome_arquivo, pacientes):
                         pacientes.get(chave)[5].append(linha[i])
     print(pacientes)
     return pacientes
-
 
 # DICIONÁRIO DA CONSULTA
 def inserirConsultas(consultas):
@@ -410,7 +476,6 @@ def inserirEmail(emails):
     
     return emails
         
-
 def inserirTelefones(telefones):
     telefone = str(input("Digite o telefone ou [ENTER] para sair: ")).lower()
 
@@ -459,12 +524,17 @@ def subMenu(medicos, pacientes, consultas):
                 if inserirMedicos(medicos, emails, telefones):
                     print("Médico adicionado com sucesso!")
                 else:
-                    print("Médico já está cadastrado")
+                    print("Médico já está cadastrado.")
+            elif opc == 2:
+                if alterarMedico(medicos):
+                    print("Médico alterado com sucesso!")
+                else:
+                    print("Médico inválido.")
             elif opc == 3:
                 if excluirMedico(medicos):
                     print("Médico excluido com sucesso!")
                 else:
-                    print("Médico não cadastrado.")
+                    print("Médico inválido.")
 
         elif opcao == 2:
             print("1. Incluir Paciente")
@@ -483,13 +553,13 @@ def subMenu(medicos, pacientes, consultas):
                 if alterarPaciente(pacientes):
                     print("Paciente alterado com sucesso!")
                 else:
-                    print("Paciente inválido!")
+                    print("Paciente inválido.")
             
             elif opc ==3:
                 if excluirPaciente(pacientes):
                     print("Paciente excluido com sucesso!")
                 else:
-                    print("Paciente não cadastrado.")
+                    print("Paciente inválido.")
 
         elif opcao == 3:
             print("1. Incluir Consulta")
@@ -503,17 +573,17 @@ def subMenu(medicos, pacientes, consultas):
                 if inserirConsultas(consultas):
                     print("Consulta marcada com sucesso!")
                 else:
-                    print("Consulta inválida!")  
+                    print("Consulta inválida.")  
             if opc == 2:         
                 if alterarConsulta(consultas):
                     print("Consulta alterada com sucesso!")                
                 else:
-                    print("Consulta inválida")           
+                    print("Consulta inválida.")           
             elif opc == 3:
                 if excluirConsulta(consultas):
                     print("Consulta excluida com sucesso!")
                 else:
-                    print("Consulta inválida!")
+                    print("Consulta inválida.")
             elif opc == 4:
                 listarConsulta(consultas)
 
@@ -528,7 +598,7 @@ def subMenu(medicos, pacientes, consultas):
                 if medicosEspecilizacaoX(medicos,especializacao):
                     print(f"Esses são os médicos com a especialização {especializacao} !")
                 else:
-                    print(f"Não temos médicos com a especialização informada {especializacao}")
+                    print(f"Não temos médicos com a especialização informada: {especializacao}")
             elif opc == 2:
                 idade = int(input("Informe a idade máxima dos pacientes que deseja ver: "))
                 if pacientesMenoresXIdade(pacientes, idade):
@@ -543,7 +613,7 @@ def subMenu(medicos, pacientes, consultas):
             gravar_medicos("Medicos.txt", medicos)
             gravar_consultas("Consultas.txt", consultas)
             gravar_pacientes("Pacientes.txt", pacientes)
-            print("Encerrando o programa!")
+            print("Encerrando o programa...")
                 
         print("="*100)     
 
