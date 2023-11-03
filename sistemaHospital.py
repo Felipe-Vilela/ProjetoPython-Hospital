@@ -30,7 +30,7 @@ def inserirMedicos(medicos, emails, telefones):
         return False
 
 def alterarMedico(medicos):
-    print("Informe o crm do médico que deseja alterar: ")
+    print("Informe o CRM do médico que deseja alterar: ")
     crm = str(input("Digite o CRM: ")).lower()
     
     emails = []
@@ -99,7 +99,7 @@ def alterarMedico(medicos):
         return False
     
 def excluirMedico(medicos):
-    crm = str(input("Infome o crm do médico que deseja excluir: "))
+    crm = str(input("Infome o CRM do médico que deseja excluir: "))
     if crm in medicos.keys():
         del medicos[crm]
         return True
@@ -195,7 +195,7 @@ def inserirPacientes(pacientes, emails, telefones):
         return False
 
 def alterarPaciente(pacientes):
-    print("Informe o cpf do paciente que deseja alterar: ")
+    print("Informe o CPF do paciente que deseja alterar: ")
 
     cpf = str(input("Digite o CPF: ")).lower()
 
@@ -263,7 +263,7 @@ def alterarPaciente(pacientes):
         return False
 
 def excluirPaciente(pacientes):
-    cpf = str(input("Infome o cpf do paciente que deseja excluir: "))
+    cpf = str(input("Infome o CPF do paciente que deseja excluir: "))
     if cpf in pacientes.keys():
         del pacientes[cpf]
         return True
@@ -475,7 +475,6 @@ def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, diasAtras):
     return True
 
 # SUBFUNÇÕES
-
 def existe_arquivo(nome_arquivo):
     import os
     if os.path.exists(nome_arquivo):
