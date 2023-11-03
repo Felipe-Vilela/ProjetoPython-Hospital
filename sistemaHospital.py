@@ -16,6 +16,9 @@ def inserirMedicos(medicos, emails, telefones):
     if verificarInclusao(medicos, crm):
         nome = str(input("Digite o seu nome: ")).lower()
         data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
+        if verificarData(data_nascimento) == False:
+            print("Formato inválido")
+            return False
         sexo = str(input("Digite o seu sexo (M/F): ")).lower()
         especialidade = str(input("Digite a sua especialidade: ")).lower()
         universidade = str(input("Digite a universidade em que se formou: ")).lower()
@@ -59,6 +62,9 @@ def alterarMedico(medicos):
             return True 
         elif opcaoAlterar == "data de nascimento":
             data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
+            if verificarData(data_nascimento) == False:
+                print("Formato inválido")
+                return False
             medicos[crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
             return True 
         elif opcaoAlterar == "sexo":
@@ -86,6 +92,9 @@ def alterarMedico(medicos):
         elif opcaoAlterar == "telefones":
             telefoneAlterar = str(input("Digite o telefone que deseja alterar: "))
             telefoneNovo = str(input("Digite o telefone novo: "))
+            if verificarTel(telefoneNovo) == False:
+                print("Contém caractere não aceito para telefone.")
+
 
             telefones.remove(telefoneAlterar)
             telefones.append(telefoneNovo) 
@@ -195,6 +204,9 @@ def inserirPacientes(pacientes, emails, telefones):
     if verificarInclusao(pacientes, cpf):
         nome = str(input("Digite o seu nome: ")).lower()
         data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
+        if verificarData(data_nascimento) == False:
+            print("Formato inválido")
+            return False
         sexo = str(input("Digite o seu sexo (M/F) : ")).lower()
         plano_saude = str(input("Digite o seu plano de saúde: ")).lower()
         emails = inserirEmail(emails)
@@ -602,8 +614,15 @@ def verificarData(data):
         else:
             return False
 
-def verificarTel(posicao_lista):
-    if  "0" in posicao_lista or "0" in posicao_lista or "1" in posicao_lista or "2" in posicao_lista or "3" in posicao_lista or "4" in posicao_lista or "5" in posicao_lista or "6" in posicao_lista or "7" in posicao_lista or "8" in posicao_lista or "9" in posicao_lista or "-" in posicao_lista:   
+def verificarTel(elemento):
+    qtd_elementos = 0
+    for i in range(len(elemento)):
+        if  "0" in elemento or "1" in elemento or "2" in elemento or "3" in elemento or "4" in elemento or "5" in elemento or "6" in elemento or "7" in elemento or "8" in elemento or "9" in elemento or "-" in elemento:   
+            qtd_elementos += 1
+        else:
+            return False
+
+    if qtd_elementos == len(elemento):
         return True
     else:
         return False
@@ -628,9 +647,13 @@ def inserirTelefones(telefones):
     telefone = str(input("Digite o telefone: ")).lower()
 
     while telefone != "":
-        telefones.append(telefone)
+        if verificarTel(telefone):
+            telefones.append(telefone)
+        else:
+            print("Formato inválido.")
         telefone = str(input("Digite o telefone ou [ENTER] para sair: ")).lower()
-    
+
+     
     return telefones
 
 def inserirMedicamentos(medicamentos):
