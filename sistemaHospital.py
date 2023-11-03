@@ -170,7 +170,7 @@ def ler_medicos(nome_arquivo, medicos):
                     if linha[i] != "\n":
                         if "@" in linha[i]:
                             medicos.get(chave)[5].append(linha[i])
-                        else:
+                        elif verificarTel(linha[i]):
                             medicos.get(chave)[6].append(linha[i])
     print(medicos)
     return medicos
@@ -319,10 +319,11 @@ def ler_pacientes(nome_arquivo, pacientes):
                 if linha[i] != "\n":
                     if "@" in linha[i]:
                         pacientes.get(chave)[4].append(linha[i])
-                    elif "0" in linha[i] or "0" in linha[i] or "1" in linha[i] or "2" in linha[i] or "3" in linha[i] or "4" in linha[i] or "5" in linha[i] or "6" in linha[i] or "7" in linha[i] or "8" in linha[i] or "9" in linha[i] or "-" in linha[i]:   
+                    elif verificarTel(linha[i]):
                         pacientes.get(chave)[5].append(linha[i])
     print(pacientes)
     return pacientes
+
 
 # DICIONÁRIO DA CONSULTA
 def inserirConsultas(consultas):
@@ -475,6 +476,12 @@ def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, diasAtras):
     return True
 
 # SUBFUNÇÕES
+def verificarTel(posicao_lista):
+    if  "0" in posicao_lista or "0" in posicao_lista or "1" in posicao_lista or "2" in posicao_lista or "3" in posicao_lista or "4" in posicao_lista or "5" in posicao_lista or "6" in posicao_lista or "7" in posicao_lista or "8" in posicao_lista or "9" in posicao_lista or "-" in posicao_lista:   
+        return True
+    else:
+        return False
+
 def existe_arquivo(nome_arquivo):
     import os
     if os.path.exists(nome_arquivo):
