@@ -371,12 +371,17 @@ def inserirConsultas(consultas):
     crm = str(input("Digite o CRM: ")).lower()
     cpf = str(input("Digite o CPF: ")).lower()
     data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
-    hora = str(input("Digite o horario (xx:xx): ")).lower()
-    if verificarHora(hora):
-        chaves = (crm, cpf, data, hora)
-    else:
+    if verificarData(data) == False:
         print("Formato do horário inválido.")
         return False
+    
+    hora = str(input("Digite o horario (xx:xx): ")).lower()
+    if verificarHora(hora) == False:
+        print("Formato do horário inválido.")
+        return False
+    
+    chaves = (crm, cpf, data, hora)
+    
 
     if consultas != {} :
         for k in consultas.keys():
@@ -565,6 +570,38 @@ def verificarHora(hora):
         else:
             return False
 
+def verificarData(data):
+    verificacoes = 0
+
+    if len(data) != 10:
+        return False
+    else:
+        for i in range(len(data)):
+            if data[0] ==  verificarNumeros(data):
+                verificacoes += 1
+            elif data[1] == verificarNumeros(data):
+                verificacoes += 1
+            elif data[2] == "/" :
+                verificacoes += 1
+            elif data[3] == verificarNumeros(data):
+                verificacoes += 1
+            elif data[4] == verificarNumeros(data):
+                verificacoes += 1
+            elif data[5] ==  "/" :
+                verificacoes += 1
+            elif data[6] == verificarNumeros(data):
+                verificacoes += 1
+            elif data[7] == ":" :
+                verificacoes += 1
+            elif data[8] == verificarNumeros(data):
+                verificacoes += 1
+            elif data[9] == verificarNumeros(data):
+                verificacoes += 1
+        if verificacoes == 10:
+            return True
+        else:
+            return False
+
 def verificarTel(posicao_lista):
     if  "0" in posicao_lista or "0" in posicao_lista or "1" in posicao_lista or "2" in posicao_lista or "3" in posicao_lista or "4" in posicao_lista or "5" in posicao_lista or "6" in posicao_lista or "7" in posicao_lista or "8" in posicao_lista or "9" in posicao_lista or "-" in posicao_lista:   
         return True
@@ -738,7 +775,5 @@ def main():
     consultas = dict()
 
     subMenu( medicos, pacientes, consultas)    
-    hora = input(".")
-    print(verificarHora(hora))
-    
+
 main()
