@@ -106,9 +106,7 @@ def excluirMedico(medicos):
     else:
         return False
 
-def listarMedico(medicos):
-    crm = str(input("Digite o CRM: ")).lower()
-    
+def listarMedico(medicos, crm):    
     if crm in medicos.keys():
         for chave in medicos.keys():
             if chave == crm:
@@ -522,7 +520,10 @@ def ler_consultas(nome_arquivo, consultas):
     
 # FUNÇÕES RELATÓRIOS
 def medicosEspecilizacaoX(medicos, especializacao):
-    return True
+    for chave in medicos.keys():
+        if medicos.get(chave)[3] == especializacao:
+            print("-" * 100)
+            listarMedico(medicos, chave)
 
 def pacientesMenoresXIdade(pacientes, idade):
     return True
@@ -613,7 +614,8 @@ def subMenu(medicos, pacientes, consultas):
                 else:
                     print("Médico inválido.")
             elif opc == 4:
-                listarMedico(medicos)
+                crm = str(input("Digite o CRM: ")).lower()
+                listarMedico(medicos, crm)
             elif opc == 5:
                 listarTodosMedicos(medicos)
 
@@ -680,21 +682,15 @@ def subMenu(medicos, pacientes, consultas):
             opc = int(input("Qual opção você deseja? "))   
 
             if opc == 1:
-                especializacao = str(input("Informe a especialização desejada: "))
-                if medicosEspecilizacaoX(medicos, especializacao):
-                    print(f"Esses são os médicos com a especialização {especializacao} !")
-                else:
-                    print(f"Não temos médicos com a especialização informada: {especializacao}")
+                especializacao = str(input("Informe a especialização desejada: ")).lower()
+                medicosEspecilizacaoX(medicos, especializacao)
+
             elif opc == 2:
                 idade = int(input("Informe a idade máxima dos pacientes que deseja ver: "))
-                if pacientesMenoresXIdade(pacientes, idade):
-                    print(f"Esses são os pacientes menores de {idade} anos!")
-                else:
-                    print(f"Não temos pacientes menores de {idade} anos!")
+                pacientesMenoresXIdade(pacientes, idade)
             elif opc == 3:
                 ultimosDias = int(input("Informe de quantos dias atrás deseja ver consultas: "))
-                if mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas):
-                    print(f"Essas são as consultas dos ultimos {ultimosDias} dias ")
+                mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas)
         elif opcao == 5:
             gravar_medicos("Medicos.txt", medicos)
             gravar_consultas("Consultas.txt", consultas)
