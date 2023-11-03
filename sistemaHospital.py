@@ -126,9 +126,23 @@ def listarMedico(medicos):
     else:
         print("Médico inválido.")
 
-def  listarTodosMedicos(medicos):
-    return True
+def listarTodosMedicos(medicos): # Utilizado para listar todos médicos
+    for chave in medicos.keys():
+        print("_"*100)
 
+        print(f"CRM: {chave}")
+        print(f"Nome: {medicos.get(chave)[0].capitalize()}")
+        print(f"Data de nascimento: {medicos.get(chave)[1]}")
+        print(f"Sexo: {medicos.get(chave)[2].capitalize()}")
+        print(f"Especialidade: {medicos.get(chave)[3].capitalize()}")
+        print(f"Universidade: {medicos.get(chave)[4].capitalize()}")
+
+        for email in medicos.get(chave)[5]:
+                print(f"Email: {email}")
+
+        for telefone in medicos.get(chave)[6]:
+            print(f"Telefone: {telefone}")
+      
 def gravar_medicos(nome_arquivo, medicos):
     ref_arq = open(nome_arquivo, "w")
 
@@ -291,15 +305,15 @@ def listarPaciente(pacientes):
     else:
         print("Paciente inválido.")
 
-def listarTodosPacientes(pacientes): #Utilizado para pacientes, medicos e consultas
+def listarTodosPacientes(pacientes): #Utilizado para listar todos os pacientes
     for chave in pacientes.keys():
         print("_"*100)
 
         print(f"CPF: {chave}")
-        print(f"Nome: {pacientes.get(chave)[0]}")
+        print(f"Nome: {pacientes.get(chave)[0].capitalize()}")
         print(f"Data de nascimento: {pacientes.get(chave)[1]}")
-        print(f"Sexo: {pacientes.get(chave)[2]}")
-        print(f"Plano de saúde: {pacientes.get(chave)[3]}")
+        print(f"Sexo: {pacientes.get(chave)[2].capitalize()}")
+        print(f"Plano de saúde: {pacientes.get(chave)[3].capitalize()}")
         
         for email in pacientes.get(chave)[4]:
                 print(f"Email: {email}")
