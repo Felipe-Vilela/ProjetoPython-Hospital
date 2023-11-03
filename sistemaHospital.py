@@ -126,26 +126,6 @@ def listarMedico(medicos):
     else:
         print("Médico inválido.")
 
-'''
-
-def listarConsulta(consultas):  
-    crm = str(input("Digite o CRM: ")).lower()
-    cpf = str(input("Digite o CPF: ")).lower()
-    data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
-    hora = str(input("Digite o horario (xx:xx): ")).lower()
-    chaves = (crm, cpf, data, hora)
-
-    if chaves in consultas.keys():
-        for chave in consultas.keys():
-            if chaves == chave:
-                print(f"Diagnóstico: {consultas.get(chave)[0]}")
-                
-                for medicamentos in consultas.get(chave)[1]:
-                    print(f"Medicamento: {medicamentos}")
-    else:
-        print("Consulta não cadastrada.")
-    
-'''
 def gravar_medicos(nome_arquivo, medicos):
     ref_arq = open(nome_arquivo, "w")
 
