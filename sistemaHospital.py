@@ -16,7 +16,7 @@ def inserirMedicos(medicos, emails, telefones):
     if verificarInclusao(medicos, crm):
         nome = str(input("Digite o seu nome: ")).lower()
         data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
-        sexo = str(input("Digite o seu sexo (M/F) : ")).lower()
+        sexo = str(input("Digite o seu sexo (M/F): ")).lower()
         especialidade = str(input("Digite a sua especialidade: ")).lower()
         universidade = str(input("Digite a universidade em que se formou: ")).lower()
 
@@ -372,7 +372,11 @@ def inserirConsultas(consultas):
     cpf = str(input("Digite o CPF: ")).lower()
     data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
     hora = str(input("Digite o horario (xx:xx): ")).lower()
-    chaves = (crm, cpf, data, hora)
+    if verificarHora(hora):
+        chaves = (crm, cpf, data, hora)
+    else:
+        print("Formato do horário inválido.")
+        return False
 
     if consultas != {} :
         for k in consultas.keys():
@@ -532,6 +536,35 @@ def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, diasAtras):
     return True
 
 # SUBFUNÇÕES
+def verificarNumeros(string):
+    if  "0" in string or "0" in string or "1" in string or "2" in string or "3" in string or "4" in string or "5" in string or "6" in string or "7" in string or "8" in string or "9" in string:   
+        return True
+    else:
+        return False
+
+def verificarHora(hora):
+    verificacoes = 0
+
+    if len(hora) != 5:
+        return False
+    else:
+        for i in range(len(hora)):
+            if hora[0] ==  verificarNumeros(hora):
+                verificacoes += 1
+            elif hora[1] == verificarNumeros(hora):
+                verificacoes += 1
+            elif hora[2] == ":" :
+                verificacoes += 1
+            elif hora[3] == verificarNumeros(hora):
+                verificacoes += 1
+            elif hora[4] == verificarNumeros(hora):
+                verificacoes += 1
+    
+        if verificacoes == 5:
+            return True
+        else:
+            return False
+
 def verificarTel(posicao_lista):
     if  "0" in posicao_lista or "0" in posicao_lista or "1" in posicao_lista or "2" in posicao_lista or "3" in posicao_lista or "4" in posicao_lista or "5" in posicao_lista or "6" in posicao_lista or "7" in posicao_lista or "8" in posicao_lista or "9" in posicao_lista or "-" in posicao_lista:   
         return True
@@ -705,5 +738,7 @@ def main():
     consultas = dict()
 
     subMenu( medicos, pacientes, consultas)    
+    hora = input(".")
+    print(verificarHora(hora))
     
 main()
