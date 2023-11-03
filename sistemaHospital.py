@@ -98,7 +98,6 @@ def alterarMedico(medicos):
     else:
         return False
     
-
 def excluirMedico(medicos):
     crm = str(input("Infome o crm do médico que deseja excluir: "))
     if crm in medicos.keys():
@@ -108,8 +107,45 @@ def excluirMedico(medicos):
         return False
 
 def listarMedico(medicos):
-    return True
+    crm = str(input("Digite o CRM: ")).lower()
+    
+    if crm in medicos.keys():
+        for chave in medicos.keys():
+            if chave == crm:
+                print(f"Nome: {medicos.get(chave)[0].capitalize()}")
+                print(f"Data de nascimento: {medicos.get(chave)[1]}")
+                print(f"Sexo: {medicos.get(chave)[2].capitalize()}")
+                print(f"Especialidade: {medicos.get(chave)[3].capitalize()}")
+                print(f"Universidade: {medicos.get(chave)[4].capitalize()}")
 
+                for email in medicos.get(chave)[5]:
+                    print(f"Email: {email}")
+
+                for telefone in medicos.get(chave)[6]:
+                    print(f"Telefone: {telefone}")
+    else:
+        print("Médico inválido.")
+
+'''
+
+def listarConsulta(consultas):  
+    crm = str(input("Digite o CRM: ")).lower()
+    cpf = str(input("Digite o CPF: ")).lower()
+    data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
+    hora = str(input("Digite o horario (xx:xx): ")).lower()
+    chaves = (crm, cpf, data, hora)
+
+    if chaves in consultas.keys():
+        for chave in consultas.keys():
+            if chaves == chave:
+                print(f"Diagnóstico: {consultas.get(chave)[0]}")
+                
+                for medicamentos in consultas.get(chave)[1]:
+                    print(f"Medicamento: {medicamentos}")
+    else:
+        print("Consulta não cadastrada.")
+    
+'''
 def gravar_medicos(nome_arquivo, medicos):
     ref_arq = open(nome_arquivo, "w")
 
@@ -403,12 +439,12 @@ def listarConsulta(consultas):
     if chaves in consultas.keys():
         for chave in consultas.keys():
             if chaves == chave:
-                print(f"Diagnóstico: {consultas.get(chave)[0]}")
+                print(f"Diagnóstico: {consultas.get(chave)[0].capitalize()}")
                 
                 for medicamentos in consultas.get(chave)[1]:
-                    print(f"Medicamento: {medicamentos}")
+                    print(f"Medicamento: {medicamentos.capitalize()}")
     else:
-        print("Consulta não cadastrada.")
+        print("Consulta inválida.")
     
 def gravar_consultas(nome_arquivo, consultas):
     ref_arq = open(nome_arquivo, "w")
@@ -535,6 +571,8 @@ def subMenu(medicos, pacientes, consultas):
                     print("Médico excluido com sucesso!")
                 else:
                     print("Médico inválido.")
+            elif opc == 4:
+                listarMedico(medicos)
 
         elif opcao == 2:
             print("1. Incluir Paciente")
