@@ -615,14 +615,20 @@ def verificarData(data):
             return False
 
 def verificarTel(elemento):
-    qtd_elementos = 0
+    lista_elemento = []
+    
     for i in range(len(elemento)):
-        if  "0" in elemento or "1" in elemento or "2" in elemento or "3" in elemento or "4" in elemento or "5" in elemento or "6" in elemento or "7" in elemento or "8" in elemento or "9" in elemento or "-" in elemento:   
-            qtd_elementos += 1
+        lista_elemento.append(elemento[i])
+
+    elemento_verificado = ""
+
+    for i in lista_elemento:
+        if  "0" == i or "1" == i or "2" == i or "3" == i or "4" == i or "5" == i or "6" == i or "7" == i or "8" == i or "9" == i or "-" == i:   
+            elemento_verificado += i
         else:
             return False
 
-    if qtd_elementos == len(elemento):
+    if elemento_verificado == elemento:
         return True
     else:
         return False
