@@ -95,9 +95,9 @@ def alterarMedico(medicos):
         elif opcaoAlterar == "telefones":
             telefoneAlterar = str(input("Digite o telefone que deseja alterar: "))
             telefoneNovo = str(input("Digite o telefone novo: "))
-            if verificarTel(telefoneNovo) == False:
-                print("Contém caractere não aceito para telefone.")
-
+            while verificarTel(telefoneNovo) == False:
+                print("Formato inválido.")
+                telefoneNovo = str(input("Digite o telefone novo: "))
 
             telefones.remove(telefoneAlterar)
             telefones.append(telefoneNovo) 
@@ -281,6 +281,9 @@ def alterarPaciente(pacientes):
         elif opcaoAlterar == "telefones":
             telefoneAlterar = str(input("Digite o telefone que deseja alterar: "))
             telefoneNovo = str(input("Digite o telefone novo: "))
+            while verificarTel(telefoneNovo) == False:
+                print("Formato inválido.")
+                telefoneNovo = str(input("Digite o telefone novo: "))
 
             telefones.remove(telefoneAlterar)
             telefones.append(telefoneNovo) 
@@ -674,9 +677,7 @@ def inserirEmail(emails):
         else:
             print("Formato inválido.")
         email = str(input("Digite o e-mail ou [ENTER] para sair: ")).lower()
-        
 
-    
     return emails
         
 def inserirTelefones(telefones):
@@ -689,7 +690,6 @@ def inserirTelefones(telefones):
             print("Formato inválido.")
         telefone = str(input("Digite o telefone ou [ENTER] para sair: ")).lower()
 
-     
     return telefones
 
 def inserirMedicamentos(medicamentos):
@@ -698,7 +698,7 @@ def inserirMedicamentos(medicamentos):
     while medicamento != "":
         medicamentos.append(medicamento)
         medicamento = str(input("Digite o medicamento ou [ENTER] para sair: ")).lower()
-
+        
     return medicamentos
 
 def verificarInclusao(dicionario, chave):
