@@ -82,6 +82,9 @@ def alterarMedico(medicos):
         elif opcaoAlterar == "emails":
             emailAlterar = str(input("Digite o e-mail que deseja alterar: "))
             emailNovo = str(input("Digite o e-mail novo: "))
+            while verificarEmail(emailNovo) == False:
+                print("Formato inválido.")
+                emailNovo = str(input("Digite o e-mail novo novamente: "))
 
             emails.remove(emailAlterar)
             emails.append(emailNovo) 
@@ -265,6 +268,9 @@ def alterarPaciente(pacientes):
         elif opcaoAlterar == "emails":
             emailAlterar = str(input("Digite o e-mail que deseja alterar: "))
             emailNovo = str(input("Digite o e-mail novo: "))
+            while verificarEmail(emailNovo) == False:
+                print("Formato inválido.")
+                emailNovo = str(input("Digite o e-mail novo novamente: "))
 
             emails.remove(emailAlterar)
             emails.append(emailNovo) 
@@ -553,6 +559,7 @@ def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, diasAtras):
     return True
 
 # SUBFUNÇÕES
+
 def verificarNumeros(string):
     if  "0" in string or "0" in string or "1" in string or "2" in string or "3" in string or "4" in string or "5" in string or "6" in string or "7" in string or "8" in string or "9" in string:   
         return True
@@ -614,6 +621,24 @@ def verificarData(data):
         else:
             return False
 
+def verificarEmail(email):
+    lista_elemento = []
+    achou = False
+    
+    for i in range(len(email)):
+        lista_elemento.append(email[i])
+
+    for i in lista_elemento:
+        if i == "@":
+            achou = True
+    
+    if achou == True:
+        return True
+    else:
+        return False
+
+
+
 def verificarTel(elemento):
     lista_elemento = []
     
@@ -644,8 +669,13 @@ def inserirEmail(emails):
     email = str(input("Digite o e-mail: ")).lower()
     
     while email != "":
-        emails.append(email)
+        if verificarEmail(email):
+            emails.append(email)
+        else:
+            print("Formato inválido.")
         email = str(input("Digite o e-mail ou [ENTER] para sair: ")).lower()
+        
+
     
     return emails
         
