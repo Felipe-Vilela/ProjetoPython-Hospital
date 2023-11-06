@@ -556,13 +556,47 @@ def medicosEspecilizacaoX(medicos, especializacao):
             listarMedico(medicos, chave)
 
 def pacientesMenoresXIdade(pacientes, idade):
-    return True
+    from datetime import date
+    data_atual = str(date.today())
+
+    lista_data_atual = data_atual.split("-")
+
+    lista_data_atual_invertida = []
+    for c in range(len(lista_data_atual) -1, -1, -1):
+        lista_data_atual_invertida.append(int(lista_data_atual[c]))    
+    
+    for chave in pacientes.keys():
+        lista_data_paciente = pacientes.get(chave)[1].split("/")
+        
+        lista_data_paciente_formatada = []
+        for i in lista_data_paciente:
+            lista_data_paciente_formatada.append(int(i))
+        
+        idade_paciente = lista_data_atual_invertida[2] - lista_data_paciente_formatada[2]
+        
+        cont = 0
+        if idade_paciente < idade: 
+            print("-"*100)
+
+            print(f"Nome: {pacientes.get(chave)[0].capitalize()}")
+            print(f"Data de nascimento: {pacientes.get(chave)[1]}")
+            print(f"Sexo: {pacientes.get(chave)[2].capitalize()}")
+            print(f"Plano de saúde: {pacientes.get(chave)[3].capitalize()}")
+
+            for email in pacientes.get(chave)[4]:
+                print(f"Email: {email}")
+
+            for telefone in pacientes.get(chave)[5]:
+                print(f"Telefone: {telefone}")
+            
+            cont += 1
+    if cont == 0:
+        print(f"Não há pacientes menores de {idade} anos.")
 
 def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, diasAtras):
     return True
 
 # SUBFUNÇÕES
-
 def verificarNumeros(string):
     if  "0" in string or "0" in string or "1" in string or "2" in string or "3" in string or "4" in string or "5" in string or "6" in string or "7" in string or "8" in string or "9" in string:   
         return True
@@ -639,8 +673,6 @@ def verificarEmail(email):
         return True
     else:
         return False
-
-
 
 def verificarTel(elemento):
     lista_elemento = []
