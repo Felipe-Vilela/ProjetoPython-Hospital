@@ -593,9 +593,38 @@ def pacientesMenoresXIdade(pacientes, idade):
     if cont == 0:
         print(f"Não há pacientes menores de {idade} anos.")
 
-def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, diasAtras):
-    return True
+def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, ultimosDias):
+    import datetime
 
+    data_atual = datetime.date.today()
+
+    data_consulta = []
+    data_consulta_int = []
+    for chave in consultas.keys():
+        data_consulta = chave[2].split("/")
+        
+        for i in data_consulta:
+            data_consulta_int.append(int(i))
+
+        data_consulta_formatada = datetime.date(day=data_consulta_int[0], month=data_consulta_int[1], year=data_consulta_int[2])
+        
+        qtd_ultimos_dias = data_atual - data_consulta_formatada
+        qtd_ultimos_dias = qtd_ultimos_dias.days
+
+        if qtd_ultimos_dias <= ultimosDias:
+            print(f"CRM: {chave[0]}")
+            for k in medicos.keys():
+                print(f"Nome do médico: {medicos.get(chave[0])[0].capitalize()}")
+            print(f"CPF: {chave[1]}")
+            for k in pacientes.keys():
+                print(f"Nome do paciente: {pacientes.get(chave[1])[0].capitalize()}")
+            print(f"Data: {chave[2]}")
+            print(f"Hora: {chave[3]}")
+            print(f"Diagnóstico: {consultas.get(chave)[0].capitalize()}")
+            
+            for medicamentos in consultas.get(chave)[1]:
+                print(f"Medicamento: {medicamentos.capitalize()}")
+        
 # SUBFUNÇÕES
 def verificarNumeros(string):
     if  "0" in string or "0" in string or "1" in string or "2" in string or "3" in string or "4" in string or "5" in string or "6" in string or "7" in string or "8" in string or "9" in string:   
@@ -851,7 +880,7 @@ def subMenu(medicos, pacientes, consultas):
                 pacientesMenoresXIdade(pacientes, idade)
             elif opc == 3:
                 ultimosDias = int(input("Informe de quantos dias atrás deseja ver consultas: "))
-                mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas)
+                mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, ultimosDias)
         elif opcao == 5:
             gravar_medicos("Medicos.txt", medicos)
             gravar_consultas("Consultas.txt", consultas)
