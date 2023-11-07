@@ -404,11 +404,6 @@ def ler_pacientes(nome_arquivo, pacientes):
     return pacientes
 
 # DICIONÁRIO DA CONSULTA
-def pessoa_existe(dicionario, pessoa):
-    if pessoa in dicionario.keys():
-        return True
-    else:
-        return False
 
 def inserirConsultas(consultas, medicos, pacientes):
     crm = str(input("Digite o CRM: ")).lower()
@@ -444,9 +439,7 @@ def inserirConsultas(consultas, medicos, pacientes):
             medicamentos = inserirMedicamentos([])
             consultas[chaves] = [diagnostico, medicamentos]
             return True
-        else:
-            print("Horário não disponível")
-            return False
+
     else:
         diagnostico = str(input("Digite o diagnóstico: ")).lower()
         medicamentos = []
@@ -668,6 +661,12 @@ def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, ultimosDias):
         print(f"Não há consultas nos ultimos {ultimosDias} dias.")
         
 # SUBFUNÇÕES
+def pessoa_existe(dicionario, pessoa):
+    if pessoa in dicionario.keys():
+        return True
+    else:
+        return False
+
 def verificarNumeros(string):
     if  "0" in string or "0" in string or "1" in string or "2" in string or "3" in string or "4" in string or "5" in string or "6" in string or "7" in string or "8" in string or "9" in string:   
         return True
@@ -814,7 +813,7 @@ def verificaSexo(sexo):
     if sexo == "m":
         sexo = "Masculino"
     else:
-        sexo = "Femenino"
+        sexo = "Feminino"
     
     return sexo
 
