@@ -1,2 +1,3 @@
 123;caua;01/08/1999;m;plastica;usp;caua@plat;caua@olivio;16691;6626;1615;
 236;joao;01/07/1987;m;cardiologista;estacio;joaocard@;cardjj@;6615;112351;2151;
+923;bernardo;10/11/1986;f;ortopedista;harvard;berna@;16998;

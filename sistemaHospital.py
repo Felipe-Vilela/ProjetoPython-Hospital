@@ -20,6 +20,8 @@ def inserirMedicos(medicos, emails, telefones):
             print("Formato inválido")
             return False
         sexo = str(input("Digite o seu sexo (M/F): ")).lower()
+        sexo = verificaSexo(sexo)
+
         especialidade = str(input("Digite a sua especialidade: ")).lower()
         universidade = str(input("Digite a universidade em que se formou: ")).lower()
 
@@ -69,6 +71,8 @@ def alterarMedico(medicos):
             return True 
         elif opcaoAlterar == "sexo":
             sexo = str(input("Digite o seu sexo (M/F) : ")).lower()
+            sexo = verificaSexo(sexo)
+            
             medicos[crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
             return True
         elif opcaoAlterar == "especialidade":
@@ -215,6 +219,8 @@ def inserirPacientes(pacientes, emails, telefones):
             print("Formato inválido")
             return False
         sexo = str(input("Digite o seu sexo (M/F) : ")).lower()
+        sexo = verificaSexo(sexo)
+
         plano_saude = str(input("Digite o seu plano de saúde: ")).lower()
         emails = inserirEmail(emails)
         telefones = inserirTelefones(telefones)
@@ -261,7 +267,9 @@ def alterarPaciente(pacientes):
             return True 
 
         elif opcaoAlterar == "sexo":
-            sexo =  str(input("Digite o sexo: ")).lower()
+            sexo = str(input("Digite o seu sexo (M/F) : ")).lower()
+            sexo = verificaSexo(sexo)
+
             pacientes[cpf] = [nome, data_nascimento, sexo, plano_saude, emails, telefones]
             return True 
         
@@ -801,6 +809,14 @@ def verificarInclusao(dicionario, chave):
         return True
     else:
         return False
+
+def verificaSexo(sexo):
+    if sexo == "m":
+        sexo = "Masculino"
+    else:
+        sexo = "Femenino"
+    
+    return sexo
 
 # FUNÇÕES PRINCIPAIS
 def subMenu(medicos, pacientes, consultas):
