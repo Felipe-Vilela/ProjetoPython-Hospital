@@ -388,9 +388,21 @@ def ler_pacientes(nome_arquivo, pacientes):
     return pacientes
 
 # DICIONÁRIO DA CONSULTA
-def inserirConsultas(consultas):
+def pessoa_existe(dicionario, pessoa):
+    if pessoa in dicionario.keys():
+        return True
+    else:
+        return False
+
+def inserirConsultas(consultas, medicos, pacientes):
     crm = str(input("Digite o CRM: ")).lower()
+    if pessoa_existe(medicos, crm) == False:
+        print("Médico não cadastrado.")
+        return False
     cpf = str(input("Digite o CPF: ")).lower()
+    if pessoa_existe(pacientes, cpf) == False:
+        print("Paciente não cadastrado.")
+        return False
     data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
     if verificarData(data) == False:
         print("Formato do horário inválido.")
@@ -406,7 +418,8 @@ def inserirConsultas(consultas):
 
     if consultas != {} :
         for k in consultas.keys():
-            if k[0] == crm and k[2] == data and k[3] == hora or k[1] == cpf and k[2] == data and k[3] == hora:            
+            if k[0] == crm and k[2] == data and k[3] == hora or k[1] == cpf and k[2] == data and k[3] == hora or k[0] != crm and k[1] == cpf and k[2] == data and k[3] == hora : 
+                print("Horário não disponível")           
                 return False
             
             else:
@@ -817,8 +830,7 @@ def subMenu(medicos, pacientes, consultas):
                 listarTodosMedicos(medicos)
             elif opc == 6:
                 print("Voltando para o menu principal...")
-            else:
-                print("Opção inválida! Escolha uma nova opção.")
+
 
         elif opcao == 2:
             print("1. Incluir Paciente")
@@ -850,8 +862,7 @@ def subMenu(medicos, pacientes, consultas):
                 listarTodosPacientes(pacientes)
             elif opc == 6:
                 print("Voltando para o menu principal...")
-            else:
-                print("Opção inválida! Escolha uma nova opção.")
+
 
         elif opcao == 3:
             print("1. Incluir Consulta")
@@ -863,7 +874,7 @@ def subMenu(medicos, pacientes, consultas):
             opc = int(input("Qual opção você deseja? "))
 
             if opc == 1:
-                if inserirConsultas(consultas):
+                if inserirConsultas(consultas, medicos, pacientes):
                     print("Consulta marcada com sucesso!")
                 else:
                     print("Consulta inválida.")  
@@ -883,8 +894,6 @@ def subMenu(medicos, pacientes, consultas):
                 listarTodasConsultas(consultas)
             elif opc == 6:
                 print("Voltando para o menu principal...")
-            else:
-                print("Opção inválida! Escolha uma nova opção.")
 
         elif opcao == 4:
             print("1. Mostrar medicos com a especialização X")
@@ -905,8 +914,7 @@ def subMenu(medicos, pacientes, consultas):
                 mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, ultimosDias)
             elif opc == 4:
                 print("Voltando para o menu principal...")
-            else:
-                print("Opção inválida! Escolha uma nova opção.")
+
         elif opcao == 5:
             gravar_medicos("Medicos.txt", medicos)
             gravar_consultas("Consultas.txt", consultas)
