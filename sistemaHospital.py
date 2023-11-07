@@ -550,10 +550,14 @@ def ler_consultas(nome_arquivo, consultas):
     
 # FUNÇÕES RELATÓRIOS
 def medicosEspecilizacaoX(medicos, especializacao):
+    cont = 0
     for chave in medicos.keys():
         if medicos.get(chave)[3] == especializacao:
+            cont += 1
             print("-" * 100)
             listarMedico(medicos, chave)
+    if cont == 0:
+        print(f"Não há nenhum médico com a especialização: {especializacao}.")
 
 def pacientesMenoresXIdade(pacientes, idade):
     from datetime import date
@@ -596,8 +600,8 @@ def pacientesMenoresXIdade(pacientes, idade):
 def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, ultimosDias):
     import datetime
 
+    cont = 0
     data_atual = datetime.date.today()
-
     data_consulta = []
     data_consulta_int = []
     for chave in consultas.keys():
@@ -612,18 +616,20 @@ def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, ultimosDias):
         qtd_ultimos_dias = qtd_ultimos_dias.days
 
         if qtd_ultimos_dias <= ultimosDias:
+            print("-"*100)
             print(f"CRM: {chave[0]}")
-            for k in medicos.keys():
-                print(f"Nome do médico: {medicos.get(chave[0])[0].capitalize()}")
+            print(f"Nome do médico: {medicos.get(chave[0])[0].capitalize()}")
             print(f"CPF: {chave[1]}")
-            for k in pacientes.keys():
-                print(f"Nome do paciente: {pacientes.get(chave[1])[0].capitalize()}")
+            print(f"Nome do paciente: {pacientes.get(chave[1])[0].capitalize()}")
             print(f"Data: {chave[2]}")
             print(f"Hora: {chave[3]}")
             print(f"Diagnóstico: {consultas.get(chave)[0].capitalize()}")
             
             for medicamentos in consultas.get(chave)[1]:
                 print(f"Medicamento: {medicamentos.capitalize()}")
+            cont += 1
+    if cont == 0:
+        print(f"Não há consultas nos ultimos {ultimosDias} dias.")
         
 # SUBFUNÇÕES
 def verificarNumeros(string):
@@ -786,6 +792,7 @@ def subMenu(medicos, pacientes, consultas):
             print("3. Excluir Médico")
             print("4. Listar Médico")
             print("5. Listar Todos")
+            print("6. Voltar")
             opc = int(input("Qual opção você deseja? "))
 
             if opc == 1:
@@ -808,6 +815,10 @@ def subMenu(medicos, pacientes, consultas):
                 listarMedico(medicos, crm)
             elif opc == 5:
                 listarTodosMedicos(medicos)
+            elif opc == 6:
+                print("Voltando para o menu principal...")
+            else:
+                print("Opção inválida! Escolha uma nova opção.")
 
         elif opcao == 2:
             print("1. Incluir Paciente")
@@ -815,6 +826,7 @@ def subMenu(medicos, pacientes, consultas):
             print("3. Excluir Paciente")
             print("4. Listar Paciente")
             print("5. Listar Todos")
+            print("6. Voltar")
             opc = int(input("Qual opção você deseja? "))
 
             if opc == 1:
@@ -836,6 +848,10 @@ def subMenu(medicos, pacientes, consultas):
                 listarPaciente(pacientes)
             elif opc == 5:
                 listarTodosPacientes(pacientes)
+            elif opc == 6:
+                print("Voltando para o menu principal...")
+            else:
+                print("Opção inválida! Escolha uma nova opção.")
 
         elif opcao == 3:
             print("1. Incluir Consulta")
@@ -843,6 +859,7 @@ def subMenu(medicos, pacientes, consultas):
             print("3. Excluir Consulta")
             print("4. Listar Consulta")
             print("5. Listar Todas")
+            print("6. Voltar")
             opc = int(input("Qual opção você deseja? "))
 
             if opc == 1:
@@ -864,11 +881,16 @@ def subMenu(medicos, pacientes, consultas):
                 listarConsulta(consultas)
             elif opc == 5:
                 listarTodasConsultas(consultas)
+            elif opc == 6:
+                print("Voltando para o menu principal...")
+            else:
+                print("Opção inválida! Escolha uma nova opção.")
 
         elif opcao == 4:
             print("1. Mostrar medicos com a especialização X")
             print("2. Mostrar pacientes menores de X idade")
             print("3. Mostrar o CRM, o nome do médico, o CPF do paciente, o nome do paciente, data, hora, diagnostico e medicamentos para todas as consultas realizadasnos últimos X dias")
+            print("4. Voltar")
             opc = int(input("Qual opção você deseja? "))   
 
             if opc == 1:
@@ -881,6 +903,10 @@ def subMenu(medicos, pacientes, consultas):
             elif opc == 3:
                 ultimosDias = int(input("Informe de quantos dias atrás deseja ver consultas: "))
                 mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, ultimosDias)
+            elif opc == 4:
+                print("Voltando para o menu principal...")
+            else:
+                print("Opção inválida! Escolha uma nova opção.")
         elif opcao == 5:
             gravar_medicos("Medicos.txt", medicos)
             gravar_consultas("Consultas.txt", consultas)

@@ -1,0 +1,4 @@
+123;caua;01/08/1999;m;plastica;usp;caua@plat;acau@;16691;6626;1615;
+236;joao;01/07/1987;m;cardiologista;estacio;joaocard@;cardjj@;6615;112351;2151;
+789;joana;17/09/1988;f;plastica;usp;joana@plast;joaanaa@;16981;23355;251;
+987;juliana;16/06/1999;f;pneumologista;estacio;juliana@pneum;jpneum@;151;154;119;
