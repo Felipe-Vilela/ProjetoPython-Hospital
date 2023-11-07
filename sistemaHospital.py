@@ -417,17 +417,20 @@ def inserirConsultas(consultas, medicos, pacientes):
     
 
     if consultas != {} :
+
         for k in consultas.keys():
-            if k[0] == crm and k[2] == data and k[3] == hora or k[1] == cpf and k[2] == data and k[3] == hora or k[0] != crm and k[1] == cpf and k[2] == data and k[3] == hora : 
-                print("Horário não disponível")           
+            if (k[0] == crm or k[1] == cpf) and k[2] == data and k[3] == hora:
+                print("Horário não disponível")
                 return False
-            
-            else:
-                diagnostico = str(input("Digite o diagnóstico: ")).lower()
-                medicamentos = []
-                medicamentos = inserirMedicamentos(medicamentos)
-                consultas[chaves] = [diagnostico, medicamentos]
-                return True
+
+        if (crm, cpf, data, hora) not in consultas:
+            diagnostico = str(input("Digite o diagnóstico: ")).lower()
+            medicamentos = inserirMedicamentos([])
+            consultas[chaves] = [diagnostico, medicamentos]
+            return True
+        else:
+            print("Horário não disponível")
+            return False
     else:
         diagnostico = str(input("Digite o diagnóstico: ")).lower()
         medicamentos = []
