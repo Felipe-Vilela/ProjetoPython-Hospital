@@ -2,4 +2,3 @@
 236;961;01/10/2023;11:20;enxaqueca;remedio;repouso;
 789;158;10/10/2023;11:00;alergia a gato;antialergico;
 123;961;05/10/2023;11:00;alergia;antialergico;
-236;158;11/10/2023;12:30;dor de garganta;injeção;

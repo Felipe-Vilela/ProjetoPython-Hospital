@@ -113,10 +113,14 @@ def alterarMedico(medicos):
 def excluirMedico(medicos):
     crm = str(input("Infome o CRM do médico que deseja excluir: "))
     if crm in medicos.keys():
-        del medicos[crm]
-        return True
+        deseja_excluir = str(input("Médico encontrado. Deseja mesmo excluir (S ou N)? ")).lower()
+        if deseja_excluir == "s":
+            del medicos[crm]
+            print("Médico excluído com sucesso!")
+        else:
+            print("Médico não excluído.")
     else:
-        return False
+        print("Médico inválido.")
 
 def listarMedico(medicos, crm):    
     if crm in medicos.keys():
@@ -299,10 +303,14 @@ def alterarPaciente(pacientes):
 def excluirPaciente(pacientes):
     cpf = str(input("Infome o CPF do paciente que deseja excluir: "))
     if cpf in pacientes.keys():
-        del pacientes[cpf]
-        return True
+        deseja_excluir = str(input("Paciente encontrado. Deseja mesmo excluir (S ou N)? ")).lower()
+        if deseja_excluir == "s":
+            del pacientes[cpf]
+            print("Paciente excluído com sucesso!")
+        else:
+            print("Paciente não excluído.")
     else:
-        return False
+        print("Paciente inválido.")
 
 def listarPaciente(pacientes):
     cpf = str(input("Digite o CRM: ")).lower()
@@ -489,14 +497,18 @@ def excluirConsulta(consultas):
     data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
     hora = str(input("Digite o horario (xx:xx): ")).lower()
 
-    consultaExcluir = (crm, cpf, data, hora)
+    chaves = (crm, cpf, data, hora)
 
-    if consultaExcluir in consultas.keys():
-        del consultas[consultaExcluir]
-        return True
+    if chaves in consultas.keys(): 
+        deseja_excluir = str(input("Consulta encontrada. Deseja mesmo excluir (S ou N)? ")).lower()
+        if deseja_excluir == "s":
+            del consultas[chaves]
+            print("Consulta excluída com sucesso!")
+        else:
+            print("Consulta não excluída.")
     else:
-        return False
-    
+        print("Consulta inválida.")
+  
 def listarConsulta(consultas):  
     crm = str(input("Digite o CRM: ")).lower()
     cpf = str(input("Digite o CPF: ")).lower()
@@ -822,10 +834,7 @@ def subMenu(medicos, pacientes, consultas):
                 else:
                     print("Médico inválido.")
             elif opc == 3:
-                if excluirMedico(medicos):
-                    print("Médico excluido com sucesso!")
-                else:
-                    print("Médico inválido.")
+                excluirMedico(medicos)
             elif opc == 4:
                 crm = str(input("Digite o CRM: ")).lower()
                 listarMedico(medicos, crm)
@@ -855,10 +864,7 @@ def subMenu(medicos, pacientes, consultas):
                 else:
                     print("Paciente inválido.")
             elif opc == 3:
-                if excluirPaciente(pacientes):
-                    print("Paciente excluido com sucesso!")
-                else:
-                    print("Paciente inválido.")
+                excluirPaciente(pacientes) 
             elif opc == 4:
                 listarPaciente(pacientes)
             elif opc == 5:
@@ -887,10 +893,7 @@ def subMenu(medicos, pacientes, consultas):
                 else:
                     print("Consulta inválida.")           
             elif opc == 3:
-                if excluirConsulta(consultas):
-                    print("Consulta excluida com sucesso!")
-                else:
-                    print("Consulta inválida.")
+                excluirConsulta(consultas)    
             elif opc == 4:
                 listarConsulta(consultas)
             elif opc == 5:
