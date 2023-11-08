@@ -1,2 +1,3 @@
-123;felipe;01/09/1999;Masculino;plastica;harvard;felipe@;vilela@;155855;1212315;
-321;caua;08/06/1980;Masculino;cardiologista;usp sp;cacau@;caua@;155645;12665;
+4569;vinicius tassi;15/08/1989;Feminino;urologista;estacio;tassi_urolo@;urologista@vini;16994156378;16995489685;
+8974;ricardo junior;08/12/1999;Masculino;oftalmologista;usp;ricardo@;junior@oftalmo;16998745105;16996178594;
+5823;abel;15/10/2000;Masculino;esteticista;ifsp;abel@plast;plas@abel;16988745632;

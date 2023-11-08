@@ -16,9 +16,12 @@ def inserirMedicos(medicos, emails, telefones):
     if verificarInclusao(medicos, crm):
         nome = str(input("Digite o seu nome: ")).lower()
         data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
-        if verificarData(data_nascimento) == False:
-            print("Formato inválido")
-            return False
+        while verificarData(data_nascimento) == False:
+            print("Formato inválido.")
+            data_nascimento = str(input("Digite a data de nascimento novamente (xx/xx/xxxx): ")).lower()
+            verificarData(data_nascimento)
+
+            
         sexo = str(input("Digite o seu sexo (M/F): ")).lower()
         sexo = verificaSexo(sexo)
 
@@ -33,6 +36,7 @@ def inserirMedicos(medicos, emails, telefones):
         return True
     else:
         return False
+        
 
 def alterarMedico(medicos):
     print("Informe o CRM do médico que deseja alterar: ")
@@ -64,9 +68,10 @@ def alterarMedico(medicos):
             return True 
         elif opcaoAlterar == "data de nascimento":
             data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
-            if verificarData(data_nascimento) == False:
+            while verificarData(data_nascimento) == False:
                 print("Formato inválido")
-                return False
+                data_nascimento = str(input("Digite a data de nascimento novamente (xx/xx/xxxx): ")).lower()
+                verificarData(data_nascimento)
             medicos[crm] = [nome, data_nascimento, sexo, especialidade, universidade, emails, telefones]
             return True 
         elif opcaoAlterar == "sexo":
@@ -215,9 +220,11 @@ def inserirPacientes(pacientes, emails, telefones):
     if verificarInclusao(pacientes, cpf):
         nome = str(input("Digite o seu nome: ")).lower()
         data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
-        if verificarData(data_nascimento) == False:
-            print("Formato inválido")
-            return False
+        while verificarData(data_nascimento) == False:
+            print("Formato inválido.")
+            data_nascimento = str(input("Digite a data de nascimento novamente (xx/xx/xxxx): ")).lower()
+            verificarData(data_nascimento)
+
         sexo = str(input("Digite o seu sexo (M/F) : ")).lower()
         sexo = verificaSexo(sexo)
 
@@ -227,10 +234,10 @@ def inserirPacientes(pacientes, emails, telefones):
 
         pacientes[cpf] = [nome, data_nascimento, sexo, plano_saude, emails, telefones]
         return True
+        
     else:
-        print("Paciente já está na lista")
-
         return False
+
 
 def alterarPaciente(pacientes):
     print("Informe o CPF do paciente que deseja alterar: ")
@@ -263,6 +270,11 @@ def alterarPaciente(pacientes):
 
         elif opcaoAlterar == "data de nascimento":
             data_nascimento =  str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
+            while verificarData(data_nascimento) == False:
+                print("Formato inválido.")
+                data_nascimento =  str(input("Digite a data de nascimento novamente (xx/xx/xxxx): ")).lower()
+                verificarData(data_nascimento)
+
             pacientes[cpf] = [nome, data_nascimento, sexo, plano_saude, emails, telefones]
             return True 
 
@@ -321,7 +333,7 @@ def excluirPaciente(pacientes):
         print("Paciente inválido.")
 
 def listarPaciente(pacientes):
-    cpf = str(input("Digite o CRM: ")).lower()
+    cpf = str(input("Digite o CPF: ")).lower()
     
     if cpf in pacientes.keys():
         for chave in pacientes.keys():
@@ -416,7 +428,7 @@ def inserirConsultas(consultas, medicos, pacientes):
         return False
     data = str(input("Digite a data (xx/xx/xxxx): ")).lower()
     if verificarData(data) == False:
-        print("Formato do horário inválido.")
+        print("Formato da data inválido.")
         return False
     
     hora = str(input("Digite o horario (xx:xx): ")).lower()
@@ -842,7 +854,8 @@ def subMenu(medicos, pacientes, consultas):
                 if inserirMedicos(medicos, emails, telefones):
                     print("Médico adicionado com sucesso!")
                 else:
-                    print("Médico já está cadastrado.")
+                    print("Médico já cadastrado.")
+
             elif opc == 2:
                 if alterarMedico(medicos):
                     print("Médico alterado com sucesso!")
@@ -872,7 +885,7 @@ def subMenu(medicos, pacientes, consultas):
                 if inserirPacientes(pacientes, emails, telefones):
                     print("Paciente adicionado com sucesso!")
                 else:
-                    print("Paciente já esta cadastrado.")
+                    print("Paciente já cadastrado.")
             if opc == 2:
                 if alterarPaciente(pacientes):
                     print("Paciente alterado com sucesso!")
@@ -901,7 +914,7 @@ def subMenu(medicos, pacientes, consultas):
                 if inserirConsultas(consultas, medicos, pacientes):
                     print("Consulta marcada com sucesso!")
                 else:
-                    print("Consulta inválida.")  
+                    print("Consulta não marcada.")  
             if opc == 2:         
                 if alterarConsulta(consultas):
                     print("Consulta alterada com sucesso!")                
