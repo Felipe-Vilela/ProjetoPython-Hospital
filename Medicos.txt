@@ -1,3 +1,4 @@
-4569;vinicius tassi;15/08/1989;Feminino;urologista;estacio;tassi_urolo@;urologista@vini;16994156378;16995489685;
+4569;vinicius tassi;15/08/1989;Masculino;urologista;estacio;tassi_urolo@;urologista@vini;16994156378;16995489685;
 8974;ricardo junior;08/12/1999;Masculino;oftalmologista;usp;ricardo@;junior@oftalmo;16998745105;16996178594;
 5823;abel;15/10/2000;Masculino;esteticista;ifsp;abel@plast;plas@abel;16988745632;
+5698;matheus gusmão;25/07/2000;Masculino;esteticista;harvard;gusmao@plast;plast@gusmaomat;16994785216;16995782341;
