@@ -135,7 +135,7 @@ def listarMedico(medicos, crm):
     if crm in medicos.keys():
         for chave in medicos.keys():
             if chave == crm:
-                print(f"Nome: {medicos.get(chave)[0].capitalize()}")
+                print(f"Nome: {medicos.get(chave)[0].title()}")
                 print(f"Data de nascimento: {medicos.get(chave)[1]}")
                 print(f"Sexo: {medicos.get(chave)[2].capitalize()}")
                 print(f"Especialidade: {medicos.get(chave)[3].capitalize()}")
@@ -154,7 +154,7 @@ def listarTodosMedicos(medicos): # Utilizado para listar todos médicos
         print("_"*100)
 
         print(f"CRM: {chave}")
-        print(f"Nome: {medicos.get(chave)[0].capitalize()}")
+        print(f"Nome: {medicos.get(chave)[0].title()}")
         print(f"Data de nascimento: {medicos.get(chave)[1]}")
         print(f"Sexo: {medicos.get(chave)[2].capitalize()}")
         print(f"Especialidade: {medicos.get(chave)[3].capitalize()}")
@@ -338,7 +338,7 @@ def listarPaciente(pacientes):
     if cpf in pacientes.keys():
         for chave in pacientes.keys():
             if chave == cpf:
-                print(f"Nome: {pacientes.get(chave)[0].capitalize()}")
+                print(f"Nome: {pacientes.get(chave)[0].title()}")
                 print(f"Data de nascimento: {pacientes.get(chave)[1]}")
                 print(f"Sexo: {pacientes.get(chave)[2].capitalize()}")
                 print(f"Plano de saúde: {pacientes.get(chave)[3].capitalize()}")
@@ -357,7 +357,7 @@ def listarTodosPacientes(pacientes): #Utilizado para listar todos os pacientes
         print("_"*100)
 
         print(f"CPF: {chave}")
-        print(f"Nome: {pacientes.get(chave)[0].capitalize()}")
+        print(f"Nome: {pacientes.get(chave)[0].title()}")
         print(f"Data de nascimento: {pacientes.get(chave)[1]}")
         print(f"Sexo: {pacientes.get(chave)[2].capitalize()}")
         print(f"Plano de saúde: {pacientes.get(chave)[3].capitalize()}")
@@ -546,7 +546,7 @@ def listarTodasConsultas(consultas):
         print(f"CPF: {chave[1]}")
         print(f"Data: {chave[2]}")
         print(f"Hora: {chave[3]}")
-        print(f"Nome: {consultas.get(chave)[0].capitalize()}")
+        print(f"Diagnóstico: {consultas.get(chave)[0].capitalize()}")
         
         for medicamentos in consultas.get(chave)[1]:
             print(f"Medicamento: {medicamentos.capitalize()}")
@@ -603,13 +603,14 @@ def medicosEspecilizacaoX(medicos, especializacao):
 def pacientesMenoresXIdade(pacientes, idade):
     from datetime import date
     data_atual = str(date.today())
-
     lista_data_atual = data_atual.split("-")
 
     lista_data_atual_invertida = []
+
     for c in range(len(lista_data_atual) -1, -1, -1):
-        lista_data_atual_invertida.append(int(lista_data_atual[c]))    
-    
+        lista_data_atual_invertida.append(int(lista_data_atual[c]))  
+
+    cont = 0
     for chave in pacientes.keys():
         lista_data_paciente = pacientes.get(chave)[1].split("/")
         
@@ -619,11 +620,10 @@ def pacientesMenoresXIdade(pacientes, idade):
         
         idade_paciente = lista_data_atual_invertida[2] - lista_data_paciente_formatada[2]
         
-        cont = 0
         if idade_paciente < idade: 
             print("-"*100)
-
-            print(f"Nome: {pacientes.get(chave)[0].capitalize()}")
+            cont += 1
+            print(f"Nome: {pacientes.get(chave)[0].title()}")
             print(f"Data de nascimento: {pacientes.get(chave)[1]}")
             print(f"Sexo: {pacientes.get(chave)[2].capitalize()}")
             print(f"Plano de saúde: {pacientes.get(chave)[3].capitalize()}")
@@ -634,7 +634,6 @@ def pacientesMenoresXIdade(pacientes, idade):
             for telefone in pacientes.get(chave)[5]:
                 print(f"Telefone: {telefone}")
             
-            cont += 1
     if cont == 0:
         print(f"Não há pacientes menores de {idade} anos.")
 
@@ -644,24 +643,23 @@ def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, ultimosDias):
     cont = 0
     data_atual = datetime.date.today()
     data_consulta = []
-    data_consulta_int = []
     for chave in consultas.keys():
         data_consulta = chave[2].split("/")
-        
+    
+        data_consulta_int = []
         for i in data_consulta:
             data_consulta_int.append(int(i))
 
         data_consulta_formatada = datetime.date(day=data_consulta_int[0], month=data_consulta_int[1], year=data_consulta_int[2])
-        
         qtd_ultimos_dias = data_atual - data_consulta_formatada
         qtd_ultimos_dias = qtd_ultimos_dias.days
-
+  
         if qtd_ultimos_dias <= ultimosDias:
             print("-"*100)
             print(f"CRM: {chave[0]}")
-            print(f"Nome do médico: {medicos.get(chave[0])[0].capitalize()}")
+            print(f"Nome do médico: {medicos.get(chave[0])[0].title()}")
             print(f"CPF: {chave[1]}")
-            print(f"Nome do paciente: {pacientes.get(chave[1])[0].capitalize()}")
+            print(f"Nome do paciente: {pacientes.get(chave[1])[0].title()}")
             print(f"Data: {chave[2]}")
             print(f"Hora: {chave[3]}")
             print(f"Diagnóstico: {consultas.get(chave)[0].capitalize()}")
@@ -669,6 +667,7 @@ def mostrarConsultasNosUltimosXDias(medicos, pacientes, consultas, ultimosDias):
             for medicamentos in consultas.get(chave)[1]:
                 print(f"Medicamento: {medicamentos.capitalize()}")
             cont += 1
+
     if cont == 0:
         print(f"Não há consultas nos ultimos {ultimosDias} dias.")
         

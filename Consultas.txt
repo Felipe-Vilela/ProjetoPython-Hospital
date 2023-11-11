@@ -1,3 +1,3 @@
 4569;440;01/10/2023;11:40;nada de errado;n/a;
-8974;569;25/11/2023;12:40;aumento de miopia;renovar lentes;lentes escuras no oculos;
 5698;985;05/10/2023;11:50;acne;tratamento com laser;protetor solar;
+4569;569;05/11/2023;11:20;dor de garganta;nimesulida;chá;
