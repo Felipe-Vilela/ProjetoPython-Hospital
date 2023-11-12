@@ -704,21 +704,21 @@ def verificarHora(hora):
         return False
     else:
         for i in range(len(hora)):
-            if hora[0].isdigit():
-                verificacoes += 1
-            elif hora[1] == verificarNumeros(hora):
-                verificacoes += 1
-            elif hora[2] == ":" :
-                verificacoes += 1
-            elif hora[3] == verificarNumeros(hora):
-                verificacoes += 1
-            elif hora[4] == verificarNumeros(hora):
-                verificacoes += 1
-    
+            if i != 2:
+                if verificarNumeros(hora[i]):
+                    verificacoes += 1
+                else:
+                    return False
+            elif i == 2:
+                if hora[i] == ":":
+                    verificacoes += 1
+                else:
+                    return False
+            else:
+                return False
+      
         if verificacoes == 5:
             return True
-        else:
-            return False
 
 def verificarData(data):
     verificacoes = 0
@@ -742,8 +742,7 @@ def verificarData(data):
             
         if verificacoes == 10:
             return True
-        else:
-            return False
+
 
 def verificarEmail(email):
     lista_elemento = []
