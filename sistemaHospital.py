@@ -677,8 +677,22 @@ def pessoa_existe(dicionario, pessoa):
     else:
         return False
 
-def verificarNumeros(string):
-    if  "0" in string or "0" in string or "1" in string or "2" in string or "3" in string or "4" in string or "5" in string or "6" in string or "7" in string or "8" in string or "9" in string:   
+def verificarNumeros(numero):
+    
+    lista_elemento = []
+    
+    for i in range(len(numero)):
+        lista_elemento.append(numero[i])
+
+    elemento_verificado = ""
+
+    for i in lista_elemento:
+        if  i.isdigit():   
+            elemento_verificado += i
+        else:
+            return False
+
+    if elemento_verificado == numero:
         return True
     else:
         return False
@@ -690,7 +704,7 @@ def verificarHora(hora):
         return False
     else:
         for i in range(len(hora)):
-            if hora[0] ==  verificarNumeros(hora):
+            if hora[0].isdigit():
                 verificacoes += 1
             elif hora[1] == verificarNumeros(hora):
                 verificacoes += 1
@@ -713,26 +727,19 @@ def verificarData(data):
         return False
     else:
         for i in range(len(data)):
-            if data[0] ==  verificarNumeros(data):
-                verificacoes += 1
-            elif data[1] == verificarNumeros(data):
-                verificacoes += 1
-            elif data[2] == "/" :
-                verificacoes += 1
-            elif data[3] == verificarNumeros(data):
-                verificacoes += 1
-            elif data[4] == verificarNumeros(data):
-                verificacoes += 1
-            elif data[5] ==  "/" :
-                verificacoes += 1
-            elif data[6] == verificarNumeros(data):
-                verificacoes += 1
-            elif data[7] == ":" :
-                verificacoes += 1
-            elif data[8] == verificarNumeros(data):
-                verificacoes += 1
-            elif data[9] == verificarNumeros(data):
-                verificacoes += 1
+            if i != 2 and i != 5:
+                if verificarNumeros(data[i]):
+                    verificacoes += 1
+                else:
+                    return False
+            elif i == 2 or i == 5:
+                if data[i] == "/" :
+                    verificacoes += 1
+                else:
+                    return False
+            else:
+                return False
+            
         if verificacoes == 10:
             return True
         else:
