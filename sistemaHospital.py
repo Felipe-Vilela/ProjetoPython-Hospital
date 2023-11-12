@@ -13,6 +13,11 @@ def menu():
 # DICIONÁRIO DOS MÉDICOS
 def inserirMedicos(medicos, emails, telefones):
     crm = str(input("Digite o CRM: ")).lower()
+    while verificarNumeros(crm) == False:
+        print("Digite somente números para CRM: ")
+        crm = str(input("Digite o CRM novamente: ")).lower()
+        verificarNumeros(crm)
+
     if verificarInclusao(medicos, crm):
         nome = str(input("Digite o seu nome: ")).lower()
         data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
@@ -38,9 +43,8 @@ def inserirMedicos(medicos, emails, telefones):
         
 
 def alterarMedico(medicos):
-    print("Informe o CRM do médico que deseja alterar: ")
-    crm = str(input("Digite o CRM: ")).lower()
-    
+    crm = str(input("Informe o CRM do médico que deseja alterar: ")).lower()
+
     emails = []
     telefones = []
     lista_geral = []
@@ -216,6 +220,11 @@ def ler_medicos(nome_arquivo, medicos):
 # DICIONÁRIO DOS PACIENTES
 def inserirPacientes(pacientes, emails, telefones):
     cpf = str(input("Digite o CPF: ")).lower()
+    while verificarNumeros(cpf) == False:
+        print("Digite somente números para CRM: ")
+        cpf = str(input("Digite o CRM novamente: ")).lower()
+        verificarNumeros(cpf)
+
     if verificarInclusao(pacientes, cpf):
         nome = str(input("Digite o seu nome: ")).lower()
         data_nascimento = str(input("Digite a data de nascimento (xx/xx/xxxx): ")).lower()
