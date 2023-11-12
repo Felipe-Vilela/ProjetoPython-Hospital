@@ -21,7 +21,6 @@ def inserirMedicos(medicos, emails, telefones):
             data_nascimento = str(input("Digite a data de nascimento novamente (xx/xx/xxxx): ")).lower()
             verificarData(data_nascimento)
 
-            
         sexo = str(input("Digite o seu sexo (M/F): ")).lower()
         sexo = verificaSexo(sexo)
 
@@ -823,10 +822,13 @@ def verificarInclusao(dicionario, chave):
 def verificaSexo(sexo):
     if sexo == "m":
         sexo = "Masculino"
-    else:
+        return sexo
+    elif sexo == "f":
         sexo = "Feminino"
-    
-    return sexo
+        return sexo
+    else:
+        print("Formato inválido, altere com o formato correto!")
+        return sexo
 
 # FUNÇÕES PRINCIPAIS
 def subMenu(medicos, pacientes, consultas):
