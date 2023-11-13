@@ -41,7 +41,6 @@ def inserirMedicos(medicos, emails, telefones):
     else:
         return False
         
-
 def alterarMedico(medicos):
     crm = str(input("Informe o CRM do médico que deseja alterar: ")).lower()
 
@@ -245,7 +244,6 @@ def inserirPacientes(pacientes, emails, telefones):
         
     else:
         return False
-
 
 def alterarPaciente(pacientes):
     print("Informe o CPF do paciente que deseja alterar: ")
@@ -751,7 +749,6 @@ def verificarData(data):
             
         if verificacoes == 10:
             return True
-
 
 def verificarEmail(email):
     lista_elemento = []
