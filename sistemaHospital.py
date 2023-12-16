@@ -945,7 +945,7 @@ def subMenu(medicos, pacientes, consultas):
         elif opcao == 4:
             print("1. Mostrar medicos com a especialização X")
             print("2. Mostrar pacientes menores de X idade")
-            print("3. Mostrar o CRM, o nome do médico, o CPF do paciente, o nome do paciente, data, hora, diagnostico e medicamentos para todas as consultas realizadasnos últimos X dias")
+            print("3. Mostrar o CRM, o nome do médico, o CPF do paciente, o nome do paciente, data, hora, diagnostico e medicamentos para todas as consultas realizadas nos últimos X dias")
             print("4. Voltar")
             opc = int(input("Qual opção você deseja? "))   
 
